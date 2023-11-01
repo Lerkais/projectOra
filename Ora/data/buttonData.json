@@ -1,0 +1,40 @@
+{
+  "Buttons": [
+    {
+      "name": "Quit Button 1",
+      "x": 0,
+      "y": 0,
+      "h": 100,
+      "w": 400,
+      "type": "quit",
+      "text": "Quit Game"
+    },
+    {
+      "name": "Quit Button 2",
+      "x": 100,
+      "y": 100,
+      "h": 100,
+      "w": 400,
+      "type": "quit",
+      "text": "Quit Game"
+    },
+    {
+      "name": "Quit Button 3",
+      "x": 0,
+      "y": 200,
+      "h": 100,
+      "w": 400,
+      "type": "quit",
+      "text": "Quit Game"
+    },
+    {
+      "name": "Quit Button 4",
+      "x": 0,
+      "y": 300,
+      "h": 100,
+      "w": 400,
+      "type": "quit",
+      "text": "Quit Game"
+    }
+  ]
+}

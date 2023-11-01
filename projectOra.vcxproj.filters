@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="gf3d">
+      <UniqueIdentifier>{1b1d1503-6a45-4100-be32-ee17f9a6ea88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gfc">
+      <UniqueIdentifier>{1c381ab4-6ca3-4d79-9411-ca404a1ff3e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gfc\Headers">
+      <UniqueIdentifier>{726e37cf-c3dd-4afc-ba69-5a5c77db85d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gfc\Sources">
+      <UniqueIdentifier>{01afab81-a8cd-4b3c-8458-03229b76f860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gf3d\Headers">
+      <UniqueIdentifier>{f6b4af32-6fd6-4d12-94be-2df43bf9a828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gf3d\Sources">
+      <UniqueIdentifier>{b13f7217-6b0d-4012-b47d-502b24a87903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gfc\json">
+      <UniqueIdentifier>{3d455b8a-636e-4cbb-9529-ede3841487ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gfc\logger">
+      <UniqueIdentifier>{9ce26bf2-bb97-457e-b2f2-f8fc9c838f9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ora Headers">
+      <UniqueIdentifier>{2234409c-840d-4dc4-86a6-33779cf64564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ora Sources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="gf3d\gfc\include\gfc_audio.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_callbacks.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_color.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_config.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_config_def.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_hashmap.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_input.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_list.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_matrix.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_pak.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_primitives.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_shape.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_text.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_types.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\gfc_vector.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\include\miniz.h">
+      <Filter>gfc\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\agumon.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\entity.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf2d_draw.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf2d_font.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf2d_sprite.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_buffers.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_camera.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_commands.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_config.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_debug.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_device.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_extensions.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_mesh.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_model.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_obj_load.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_particle.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_pipeline.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_shaders.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_swapchain.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_texture.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_uniform_buffers.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_validation.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_vgraphics.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\gf3d_vqueues.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\player.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\include\world.h">
+      <Filter>gf3d\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\simple_json\include\simple_json.h">
+      <Filter>gfc\json</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\simple_json\include\simple_json_array.h">
+      <Filter>gfc\json</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\simple_json\include\simple_json_error.h">
+      <Filter>gfc\json</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\simple_json\include\simple_json_list.h">
+      <Filter>gfc\json</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\simple_json\include\simple_json_object.h">
+      <Filter>gfc\json</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\simple_json\include\simple_json_parse.h">
+      <Filter>gfc\json</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\simple_json\include\simple_json_string.h">
+      <Filter>gfc\json</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\simple_json\include\simple_json_types.h">
+      <Filter>gfc\json</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\simple_json\include\simple_json_value.h">
+      <Filter>gfc\json</Filter>
+    </ClInclude>
+    <ClInclude Include="gf3d\gfc\simple_logger\include\simple_logger.h">
+      <Filter>gfc\logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Ora\physics.h" />
+    <ClInclude Include="Ora\charenemy.h" />
+    <ClInclude Include="Ora\flags.h" />
+    <ClInclude Include="Ora\special_attack.h" />
+    <ClInclude Include="Ora\sceneManager.c" />
+    <ClInclude Include="Ora\sceneManager.h" />
+    <ClInclude Include="Ora\data_loader.h" />
+    <ClInclude Include="Ora\object.h" />
+    <ClInclude Include="Ora\oratime.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="gf3d\gfc\src\gfc_audio.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_callbacks.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_color.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_config.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_config_def.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_hashmap.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_input.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_list.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_matrix.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_pak.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_primitives.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_shape.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_text.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_types.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\gfc_vector.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\src\miniz.c">
+      <Filter>gfc\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\agumon.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\entity.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf2d_draw.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf2d_font.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf2d_sprite.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_buffers.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_camera.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_commands.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_config.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_debug.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_device.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_extensions.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_mesh.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_model.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_obj_load.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_particle.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_pipeline.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_shaders.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_swapchain.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_texture.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_uniform_buffers.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_validation.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_vgraphics.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\gf3d_vqueues.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\player.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\world.c">
+      <Filter>gf3d\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\src\game.c">
+      <Filter>Ora Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\simple_logger\src\simple_logger.c">
+      <Filter>gfc\logger</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\simple_json\src\simple_json.c">
+      <Filter>gfc\json</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\simple_json\src\simple_json_array.c">
+      <Filter>gfc\json</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\simple_json\src\simple_json_error.c">
+      <Filter>gfc\json</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\simple_json\src\simple_json_list.c">
+      <Filter>gfc\json</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\simple_json\src\simple_json_object.c">
+      <Filter>gfc\json</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\simple_json\src\simple_json_parse.c">
+      <Filter>gfc\json</Filter>
+    </ClCompile>
+    <ClCompile Include="gf3d\gfc\simple_json\src\simple_json_string.c">
+      <Filter>gfc\json</Filter>
+    </ClCompile>
+    <ClCompile Include="Ora\physics.c" />
+    <ClCompile Include="Ora\charenemy.c" />
+    <ClCompile Include="Ora\flags.c" />
+    <ClCompile Include="Ora\special_attack.c" />
+    <ClCompile Include="Ora\data_loader.c" />
+    <ClCompile Include="Ora\object.c" />
+    <ClCompile Include="Ora\oratime.c" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,6 @@
+C:\Users\funru\source\repos\projectOra\gf3d\src\game.c:53: gf3d begin
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_extensions.c:98: intance extensions initialized
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_vgraphics.c:272: SDL Vulkan extensions support: VK_KHR_surface
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_vgraphics.c:272: SDL Vulkan extensions support: VK_KHR_win32_surface
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_vqueues.c:229: vqueues initialized
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_extensions.c:56: device extensions initialized

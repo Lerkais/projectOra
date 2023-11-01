@@ -1,0 +1,5 @@
+.vs/
+*.blend
+Intermediate/
+libs/
+x64/

@@ -1,0 +1,76 @@
+{
+  "characters": [
+    {
+      "name": "Retro",
+      "maxHealth": "100",
+      "attack": "20",
+      "speed": "2",
+      "defense": "2",
+      "critRate": ".1"
+    },
+    {
+      "name": "Alejan",
+      "maxHealth": "110",
+      "attack": "2",
+      "speed": "2",
+      "defense": "2",
+      "critRate": ".1"
+    },
+    {
+      "name": "March 17th",
+      "maxHealth": "100",
+      "attack": "20",
+      "speed": "2",
+      "defense": "2",
+      "critRate": ".1"
+    },
+    {
+      "name": "Mer",
+      "maxHealth": "100",
+      "attack": "20",
+      "speed": "2",
+      "defense": "2",
+      "critRate": ".1"
+    },
+    {
+      "name": "Dende",
+      "maxHealth": "100",
+      "attack": "20",
+      "speed": "2",
+      "defense": "2",
+      "critRate": ".1"
+    },
+    {
+      "name": "Danda",
+      "maxHealth": "100",
+      "attack": "20",
+      "speed": "2",
+      "defense": "2",
+      "critRate": ".1"
+    },
+    {
+      "name": "Hellas",
+      "maxHealth": "100",
+      "attack": "20",
+      "speed": "2",
+      "defense": "2",
+      "critRate": ".1"
+    },
+    {
+      "name": "Yerdre",
+      "maxHealth": "100",
+      "attack": "20",
+      "speed": "2",
+      "defense": "2",
+      "critRate": ".1"
+    },
+    {
+      "name": "Casker",
+      "maxHealth": "100",
+      "attack": "20",
+      "speed": "2",
+      "defense": "2",
+      "critRate": ".1"
+    }
+  ]
+}
