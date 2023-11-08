@@ -6,6 +6,8 @@
 #include "charenemy.h"
 #include "simple_logger.h"
 
+struct Object_S;
+
 typedef enum ObjectType_E {
 	charenemy,
 	enviorment,
@@ -16,12 +18,15 @@ typedef enum ObjectType_E {
 }ObjectType;
 
 typedef struct CharenemyObject_S {
-	Charenemy charenemy;
+	Charenemy* charenemy;
 }CharenemyObject;
 
 typedef struct ProjectileObject_S {
 	//Projectile 
-	int a;
+	struct Object_S* creator;
+	struct Object_S* target;
+	float damage;
+	float speed;
 }ProjectileObject;
 
 typedef struct SpecialObject_S {
@@ -44,6 +49,7 @@ typedef struct Object_S {
 	unsigned char ID;
 	bool isActive;
 	bool isStatic;
+	bool toBeDestroyed;
 	Vector3D position;
 	Vector3D velocity;
 	Vector3D acceleration;
@@ -60,7 +66,8 @@ typedef struct Object_S {
 	void (*think)(struct Object_S* self); /**<pointer to the think function*/
 	void (*update)(struct Object_S* self); /**<pointer to the update function*/
 	void (*draw)(struct Object_S* self); /**<pointer to an optional extra draw funciton*/
-	void (*damage)(struct Object_S* self, float damage, struct Object_S* inflictor); /**<pointer to the think function*/
+	void (*damage)(struct Object_S* self, float damage); /**<pointer to the think function*/
+	void (*destroy)(struct Object_S* self);
 	void (*onDeath)(struct Object_S* self); /**<pointer to an funciton to call when the entity dies*/
 }Object;
 

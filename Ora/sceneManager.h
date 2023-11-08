@@ -6,14 +6,19 @@
 
 
 typedef enum SceneType_E {
-	menu,
-	exploration,
-	battle,
+	menuScene,
+	explorationScene,
+	battleScene,
 	otherscene
 }SceneType;
 
+typedef struct BattleSceneData_S {
+	Object* playerChar;
+	Object* enemyChar;
+}BattleSceneData;
+
 typedef union SceneData_U {
-	int a;
+	BattleSceneData battleData;
 }SceneData;
 
 typedef struct Scene_S{
@@ -23,6 +28,7 @@ typedef struct Scene_S{
 	unsigned int objectCount;
 	unsigned int objectSize;
 	Object** objects;
+	SceneData data;
 }Scene;
 
 typedef struct SceneManager_S {
@@ -56,6 +62,10 @@ Scene* NewScene(SceneType type);
 /// <param name="scene"></param>
 /// <returns></returns>
 bool AddSceneToManager(Scene* scene);
+
+void RemoveSceneObject(Scene* scene, Object* object);
+
+
 
 /// <summary>
 /// creates a new unique id for the given scene within the manager
@@ -105,6 +115,16 @@ void UpdateObjects(Scene* scene);
 /// </summary>
 /// <param name="object"></param>
 void AddObjectToActiveScene(Object* object);
+
+/// <summary>
+/// Removes an object from the given scene by given pointer
+/// </summary>
+/// <param name="scene"></param>
+/// <param name="object"></param>
+void RemoveAndDestroySceneObject(Scene* scene, Object* object);
+
+void RemoveSceneObject(Scene* scene, Object* object);
+
 
 
 

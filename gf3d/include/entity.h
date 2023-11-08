@@ -6,6 +6,7 @@
 #include "gfc_primitives.h"
 
 #include "gf3d_model.h"
+#include <stdbool.h>
 
 typedef enum
 {
@@ -44,6 +45,8 @@ typedef struct Entity_S
         
     Vector3D    scale;
     Vector3D    rotation;
+
+    bool canMove;
     
     Uint32      health;     /**<entity dies when it reaches zero*/
     // WHATEVER ELSE WE MIGHT NEED FOR ENTITIES

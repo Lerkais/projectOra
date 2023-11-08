@@ -2,7 +2,8 @@
   "characters": [
     {
       "name": "Retro",
-      "maxHealth": "100",
+      "UID" : "1",
+      "maxHealth": "100000",
       "attack": "20",
       "speed": "2",
       "defense": "2",
@@ -10,23 +11,26 @@
     },
     {
       "name": "Alejan",
-      "maxHealth": "110",
+      "UID": "2",
+      "maxHealth": "110000",
       "attack": "2",
       "speed": "2",
-      "defense": "2",
+      "defense": "20",
       "critRate": ".1"
     },
     {
       "name": "March 17th",
-      "maxHealth": "100",
+      "UID": "3",
+      "maxHealth": "300",
       "attack": "20",
       "speed": "2",
-      "defense": "2",
+      "defense": "0",
       "critRate": ".1"
     },
     {
       "name": "Mer",
-      "maxHealth": "100",
+      "UID": "4",
+      "maxHealth": "300",
       "attack": "20",
       "speed": "2",
       "defense": "2",
@@ -34,7 +38,8 @@
     },
     {
       "name": "Dende",
-      "maxHealth": "100",
+      "UID" : "5",
+      "maxHealth": "300",
       "attack": "20",
       "speed": "2",
       "defense": "2",
@@ -42,7 +47,8 @@
     },
     {
       "name": "Danda",
-      "maxHealth": "100",
+      "UID": "6",
+      "maxHealth": "300",
       "attack": "20",
       "speed": "2",
       "defense": "2",
@@ -50,7 +56,8 @@
     },
     {
       "name": "Hellas",
-      "maxHealth": "100",
+      "UID": "7",
+      "maxHealth": "300",
       "attack": "20",
       "speed": "2",
       "defense": "2",
@@ -58,7 +65,8 @@
     },
     {
       "name": "Yerdre",
-      "maxHealth": "100",
+      "UID": "8",
+      "maxHealth": "300",
       "attack": "20",
       "speed": "2",
       "defense": "2",
@@ -66,7 +74,8 @@
     },
     {
       "name": "Casker",
-      "maxHealth": "100",
+      "UID": "9",
+      "maxHealth": "300",
       "attack": "20",
       "speed": "2",
       "defense": "2",

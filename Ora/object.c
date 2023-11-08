@@ -25,12 +25,13 @@ Object* NewObject()
     newObject->velocity = vector3d(0, 0, 0); // Set the position as needed
     newObject->acceleration = vector3d(0, 0, 0); // Set the position as needed
     newObject->rotation = vector3d(0, 0, 0);
-    newObject->scale = vector3d(.3, .3, .3);
+    newObject->scale = vector3d(.3f, .3f, .3f);
 
     newObject->update = &UpdateMe;
 
     newObject->isStatic = false;
     newObject->isActive = false;
+    newObject->toBeDestroyed = false;
 
     gfc_matrix_identity(newObject->modelMat);
 
@@ -80,7 +81,7 @@ void FreeObject(Object* object)
 
 void DrawObject(Object* self) {
     if (!self)return;
-    if (!(self->isActive))return;
+    if (!(self->isActive || self->toBeDestroyed))return;
     if (!self->model)return;
     if (self->model) gf3d_model_draw(self->model, self->modelMat, gfc_color_to_vector4f(self->color), vector4d(1, 1, 1, 1));
 }

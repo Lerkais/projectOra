@@ -72,14 +72,14 @@
     <ClInclude Include="gf3d\include\player.h" />
     <ClInclude Include="gf3d\include\world.h" />
     <ClInclude Include="Ora\charenemy.h" />
-    <ClInclude Include="Ora\flags.h" />
+    <ClInclude Include="Ora\collision.h" />
     <ClInclude Include="Ora\object.h" />
-    <ClInclude Include="Ora\physics.h" />
     <ClInclude Include="Ora\sceneManager.c" />
     <ClInclude Include="Ora\sceneManager.h" />
     <ClInclude Include="Ora\data_loader.h" />
     <ClInclude Include="Ora\special_attack.h" />
     <ClInclude Include="Ora\oratime.h" />
+    <ClInclude Include="Ora\weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gf3d\gfc\simple_json\src\simple_json.c" />
@@ -134,12 +134,10 @@
     <ClCompile Include="gf3d\src\player.c" />
     <ClCompile Include="gf3d\src\world.c" />
     <ClCompile Include="Ora\charenemy.c" />
-    <ClCompile Include="Ora\data_loader.c" />
-    <ClCompile Include="Ora\flags.c" />
     <ClCompile Include="Ora\object.c" />
-    <ClCompile Include="Ora\physics.c" />
     <ClCompile Include="Ora\special_attack.c" />
     <ClCompile Include="Ora\oratime.c" />
+    <ClCompile Include="Ora\weapon.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

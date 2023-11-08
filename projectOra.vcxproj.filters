@@ -190,15 +190,15 @@
     <ClInclude Include="gf3d\gfc\simple_logger\include\simple_logger.h">
       <Filter>gfc\logger</Filter>
     </ClInclude>
-    <ClInclude Include="Ora\physics.h" />
     <ClInclude Include="Ora\charenemy.h" />
-    <ClInclude Include="Ora\flags.h" />
     <ClInclude Include="Ora\special_attack.h" />
     <ClInclude Include="Ora\sceneManager.c" />
     <ClInclude Include="Ora\sceneManager.h" />
     <ClInclude Include="Ora\data_loader.h" />
     <ClInclude Include="Ora\object.h" />
     <ClInclude Include="Ora\oratime.h" />
+    <ClInclude Include="Ora\collision.h" />
+    <ClInclude Include="Ora\weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gf3d\gfc\src\gfc_audio.c">
@@ -354,12 +354,10 @@
     <ClCompile Include="gf3d\gfc\simple_json\src\simple_json_string.c">
       <Filter>gfc\json</Filter>
     </ClCompile>
-    <ClCompile Include="Ora\physics.c" />
     <ClCompile Include="Ora\charenemy.c" />
-    <ClCompile Include="Ora\flags.c" />
     <ClCompile Include="Ora\special_attack.c" />
-    <ClCompile Include="Ora\data_loader.c" />
-    <ClCompile Include="Ora\object.c" />
     <ClCompile Include="Ora\oratime.c" />
+    <ClCompile Include="Ora\object.c" />
+    <ClCompile Include="Ora\weapon.c" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 
 #include "sceneManager.h"
 #include "oratime.h"
+#include "object.h"
 
 SceneManager* sceneManager = NULL;
 
@@ -31,7 +32,7 @@ Scene* NewScene(SceneType type)
 	Scene* ret = malloc(sizeof(Scene));
 	if (!ret)return;
 	switch (type) {
-	case otherscene:
+	default:
 		ret->Id = NewID(sceneManager);
 		char* buff = calloc(50, sizeof(char));
 		sprintf(buff, "Scene%i", ret->Id);
@@ -39,9 +40,8 @@ Scene* NewScene(SceneType type)
 		ret->objectCount = 0;
 		ret->objectSize = 4;
 		ret->objects = malloc(sizeof(Object*)*4);
+		ret->type = type;
 		break;
-	default:
-		return NULL;
 	}
 	return ret;
 }
@@ -83,14 +83,38 @@ void AddSceneObject(Scene* scene, Object* object)
 	}
 	scene->objects[scene->objectCount] = object;
 	scene->objectCount++;
-	if (scene = sceneManager->activeScene) object->isActive = true;
+	if (scene == sceneManager->activeScene) object->isActive = true;
+}
+
+void RemoveSceneObject(Scene* scene, Object* object)
+{
+		if (!scene || !object || scene->objectCount == 0)return;
+		for (unsigned int i = 0; i < scene->objectCount; i++)
+		{
+			if (scene->objects[i] == object)
+			{
+				if (i != scene->objectCount-1)
+				{
+					scene->objects[i] = scene->objects[scene->objectCount-1];
+				}					
+				scene->objectCount--;
+				scene->objects[scene->objectCount] = NULL;
+				break;
+			}
+		}
+}
+
+void RemoveAndDestroySceneObject(Scene* scene, Object* object)
+{
+	RemoveSceneObject(scene, object);
 }
 
 void DrawSceneObjects(Scene* scene)
 {
 	for (int i = 0; i < scene->objectCount; i++) 
 	{
-		DrawObject(scene->objects[i]);
+		if(scene->objects[i]->isActive && !scene->objects[i]->toBeDestroyed)
+			DrawObject(scene->objects[i]);
 	}
 }
 
@@ -113,14 +137,24 @@ void UpdateObjects(Scene* scene)
 
 	int count = scene->objectCount;
 
+
+
 	for (int i = 0; i < scene->objectCount; i++)
 	{
-		scene->objects[i]->update(scene->objects[i]);
+		if (vector3d_magnitude(scene->objects[i]->position) > 10000) //World radial contraint
+			scene->objects[i]->toBeDestroyed = true;
+		if (scene->objects[i]->toBeDestroyed) {
+			RemoveAndDestroySceneObject(scene,scene->objects[i]);
+			i--;
+		}
+		else
+			scene->objects[i]->update(scene->objects[i]);
 	}
 }
 
 void AddObjectToActiveScene(Object* object)
 {
+	if (object == NULL)return;
 	if(sceneManager->activeScene)
 	AddSceneObject(sceneManager->activeScene, object);
 }
@@ -131,7 +165,7 @@ void LoadScene(Scene* scene)
 
 	sceneManager->activeScene = scene;
 
-	for (int i = 0; sceneManager->count; i++)
+	for (int i = 0; i < sceneManager->count; i++)
 	{
 		scene->objects[i]->isActive = true;
 	}

@@ -5,32 +5,41 @@
 
 #include "gfc_vector.h"
 #include "gf3d_model.h"
+#include "weapon.h"
 
-#include "flags.h"
-
-
-
-
-typedef struct stats {
+typedef struct Stat_S {
 	int maxHealth;
 	int attack;
 	int speed;
 	int defense;
 	float critRate;
-} stat;
+} Stat;
+
+typedef struct cooldowns_S {
+	float basic;
+	float heavy;
+	float special;
+}cooldowns;
 
 typedef struct Charenemy_S {
-	Model* model; //Pointer to the model of the charenemy
-	Vector3D position; //The current position of the charenemy
 	//TODO: Vector3D velocity;
 	//TODO: Vector3D acceleration;
 
-
-	FlagContainer* fc; //Used to denote special flags; must be initialized/cleaned, Uses charenemyFlags enum
+	bool isDead;
 	
 	char* name;
 
-	stat stats;
+	unsigned char uid;
+
+	Stat stats;
+
+	float health;
+	cooldowns cooldownTimers;
+	cooldowns cooldownMax;
+
+	Weapon weapon;
+
+	void (*takedamage)(struct Charenemy_S* self, float damage); /**<pointer to the damage function*/
 	
 	//TODO: weapon
 }Charenemy;
@@ -58,8 +67,9 @@ Charenemy* newCharacter();
 
 
 //
-stat* newStat(); 
+Stat* newStat(); 
 
+unsigned char tickcds(Charenemy* self);
 
 /// <summary>
 /// Loads charaenemies into a master charenemy list from given folder containing
@@ -94,6 +104,12 @@ void destroy(Charenemy* chara);
 
 void DEBUGprintCharacters();
 
+/// <summary>
+/// Read only stats struct with values modified by the weapon struct
+/// </summary>
+Stat getModifiedStats(Charenemy* self);
+
+void takeDamageCharenemy(Charenemy* self, float amount);
 
 
 #endif

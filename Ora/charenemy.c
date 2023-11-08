@@ -4,6 +4,7 @@
 #include "simple_json.h"
 #include "simple_logger.h"
 #include "sceneManager.h"
+#include "oratime.h"
 
 
 
@@ -11,26 +12,19 @@
 Charenemy* *CharenemyList;
 unsigned char CharenemyListSize;
 
-void initCharenemy() 
-{
-}
+void takeDamageCharenemy(Charenemy* self, float amount);
 
 Charenemy* populateCharacters(char* filepath)
 {
-	SJson* json;
+	SJson *json,*keys;
 
 	json = sj_load(filepath);
 
-
-	
-	SJList* keys = sj_list_new();
-
-	if (!keys)
-		keys = (SJList*)sj_object_get_value(json, "characters");
+	keys = sj_object_get_value(json, "characters");
 	
 	
 	
-	unsigned char c = sj_list_get_count(keys);
+	unsigned char c = sj_array_get_count(keys);
 
 	CharenemyList = malloc(sizeof(Charenemy *) * c);
 	CharenemyListSize = c;
@@ -39,14 +33,34 @@ Charenemy* populateCharacters(char* filepath)
 	{
 		Charenemy* refp = newCharacter();
 		if (!refp) return;
-		SJson* idp = sj_list_get_nth(keys, i);
-		refp->name = sj_object_get_value_as_string(idp, "name");
+		SJson* idp = sj_array_get_nth(keys, i);
+		strcpy(refp->name, sj_object_get_value_as_string(idp, "name"));
 		sj_object_get_value_as_int(idp, "attack", &(refp->stats.attack));
 		sj_object_get_value_as_int(idp, "maxHealth", &(refp->stats.maxHealth));
 		sj_object_get_value_as_int(idp, "speed", &(refp->stats.speed));
 		sj_object_get_value_as_int(idp, "defense", &(refp->stats.defense));
 		sj_object_get_value_as_float(idp, "critRate", &(refp->stats.critRate));
+		sj_object_get_value_as_int(idp, "UID",&(refp->uid));
 		//char* name = sj_object_get_value_as_string(idp, "name");
+
+		refp->weapon.critAddittive = 1;
+		refp->weapon.damageAdditive = 1;
+		refp->weapon.defenseAddittive = 1;
+		refp->weapon.speedAddittive = 1;
+
+		refp->cooldownMax.basic = 1;
+		refp->cooldownMax.heavy = 5;
+		refp->cooldownMax.special = 20;
+
+		refp->takedamage = takeDamageCharenemy;
+
+		refp->health = refp->stats.maxHealth;
+
+		refp->cooldownTimers = refp->cooldownMax;
+
+		refp->isDead = false;
+
+
 
 		if(CharenemyList != NULL)
 			CharenemyList[i] = refp;
@@ -63,12 +77,20 @@ Charenemy* populateCharacters(char* filepath)
 Charenemy* newCharacter() 
 {
 	Charenemy* ret = malloc(sizeof(Charenemy));
-	Scene* ret1 = malloc(sizeof(Scene));
+	
 	
 	if (ret == NULL) {
 		slog("Malloc for new character failed");
-		return NULL;
+		exit(29);
 	}
+	ret->name = calloc(64, sizeof(char));
+	if (ret->name == NULL) {
+		slog("Malloc for new character failed - name");
+		exit(30);
+	}
+
+
+	return ret;
 }
 
 
@@ -93,4 +115,69 @@ void DEBUGprintCharacters()
 		printf("speed: %i\n\n", CharenemyList[i]->stats.speed);
 	}
 	printf("done");
+}
+
+Stat getModifiedStats(Charenemy* self)
+{
+	Stat ret = self->stats;
+	Weapon src = self->weapon;
+	ret.attack += src.damageAdditive;
+	ret.critRate += src.critAddittive;
+	ret.defense += src.defenseAddittive;
+	ret.speed += src.speedAddittive;
+	return ret;
+}
+
+unsigned char tickcds(Charenemy* self)
+{
+	float *b, *h, *s; //basic heavy, special
+	float bm, hm, sm;
+	unsigned char ret = 0b000;
+
+	b = &self->cooldownTimers.basic;
+	h = &self->cooldownTimers.heavy;
+	s = &self->cooldownTimers.special;
+
+	bm = self->cooldownMax.basic;
+	hm = self->cooldownMax.heavy;
+	sm = self->cooldownMax.special;
+
+	if (*b < 0)
+	{
+		*b = bm;
+		ret = ret | 0b100;
+	}
+	else
+		*b -= deltaTime;
+
+	if (*h < 0)
+	{
+		*h = hm;
+		ret = ret | 0b010;
+	}
+	else
+		*h -= deltaTime;
+
+	if (*s < 0)
+	{
+		ret = ret | 0b001;
+	}
+	else
+		*s -= deltaTime;
+
+	return ret;
+}
+
+void takeDamageCharenemy(Charenemy* self, float amount)
+{
+	self->health -= amount;
+	if (self->health < 0)
+	{
+		kill(self);
+	}
+}
+
+void kill(Charenemy* chara)
+{
+	chara->isDead = true;
 }
