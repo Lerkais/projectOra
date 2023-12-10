@@ -15,7 +15,7 @@ typedef struct
 {
     int channel;        /**<which channel to play it on*/
     int current;        /**<which sound is currently being played*/
-    List *sequence;     /**<list of Sound pointers to be played in sequence*/
+    gfcList *sequence;     /**<list of Sound pointers to be played in sequence*/
 }SoundSequence;
 
 typedef struct
@@ -118,7 +118,7 @@ void gfc_sound_pack_free(HashMap *pack);
  * @note copies the sound list, so feel free to free the list provided.
  * @note it will not free or change the refcount for the sounds in the list, so keep them alive while needed
  */
-void gfc_sound_queue_sequence(List *sounds,int channel);
+void gfc_sound_queue_sequence(gfcList *sounds,int channel);
 
 
 #endif

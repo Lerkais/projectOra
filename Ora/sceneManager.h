@@ -6,9 +6,9 @@
 
 
 typedef enum SceneType_E {
-	menuScene,
-	explorationScene,
-	battleScene,
+	menuscene,
+	explorationscene,
+	battlescene,
 	otherscene
 }SceneType;
 
@@ -32,11 +32,10 @@ typedef struct Scene_S{
 }Scene;
 
 typedef struct SceneManager_S {
-	Scene** scenes; //Max 10 scenes allowed for now
+	Scene** scenes; //Max 10 scenes allowed for now?
 	unsigned int count;
 	unsigned int size;
 	Scene* activeScene;
-
 }SceneManager;
 
 /// <summary>
@@ -99,10 +98,16 @@ bool FreeScene(Scene* scene);
 bool FreeScene(int sceneID);
 
 /// <summary>
-/// Loads a scene into game
+/// Loads a scene into game, sets owned objects as active
 /// </summary>
 /// <param name="scene"></param>
 void LoadScene(Scene* scene);
+
+/// <summary>
+/// Unloads active scene and saves it 
+/// </summary>
+/// <returns></returns>
+Scene* UnloadActiveScene();
 
 /// <summary>
 /// Updates all objects in a scene
@@ -125,7 +130,7 @@ void RemoveAndDestroySceneObject(Scene* scene, Object* object);
 
 void RemoveSceneObject(Scene* scene, Object* object);
 
-
+void DrawSceneObjects(Scene* scene);
 
 
 #endif

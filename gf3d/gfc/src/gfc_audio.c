@@ -10,7 +10,7 @@ typedef struct
 {
     Uint32  max_sounds;
     Sound * sound_list;
-    List  * sound_sequences;
+    gfcList  * sound_sequences;
 }SoundManager;
 
 static SoundManager sound_manager={0,NULL};
@@ -308,7 +308,7 @@ SoundSequence *gfc_sound_sequence_new()
     return sequence;
 }
 
-void gfc_sound_queue_sequence(List *sounds,int channel)
+void gfc_sound_queue_sequence(gfcList *sounds,int channel)
 {
     SoundSequence *sequence;
     if (!sounds)return;

@@ -192,13 +192,17 @@
     </ClInclude>
     <ClInclude Include="Ora\charenemy.h" />
     <ClInclude Include="Ora\special_attack.h" />
-    <ClInclude Include="Ora\sceneManager.c" />
     <ClInclude Include="Ora\sceneManager.h" />
     <ClInclude Include="Ora\data_loader.h" />
     <ClInclude Include="Ora\object.h" />
     <ClInclude Include="Ora\oratime.h" />
     <ClInclude Include="Ora\collision.h" />
     <ClInclude Include="Ora\weapon.h" />
+    <ClInclude Include="Ora\button.h" />
+    <ClInclude Include="Ora\ray.h" />
+    <ClInclude Include="Ora\playerPowers.h" />
+    <ClInclude Include="Ora\Pbdfluid.h" />
+    <ClInclude Include="Ora\oraGLTF.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gf3d\gfc\src\gfc_audio.c">
@@ -327,9 +331,6 @@
     <ClCompile Include="gf3d\src\world.c">
       <Filter>gf3d\Sources</Filter>
     </ClCompile>
-    <ClCompile Include="gf3d\src\game.c">
-      <Filter>Ora Sources</Filter>
-    </ClCompile>
     <ClCompile Include="gf3d\gfc\simple_logger\src\simple_logger.c">
       <Filter>gfc\logger</Filter>
     </ClCompile>
@@ -359,5 +360,18 @@
     <ClCompile Include="Ora\oratime.c" />
     <ClCompile Include="Ora\object.c" />
     <ClCompile Include="Ora\weapon.c" />
+    <ClCompile Include="gf3d\gfc\include\ora_base64.h" />
+    <ClCompile Include="Ora\ora_game.c" />
+    <ClCompile Include="Ora\sceneManager.c" />
+    <ClCompile Include="Ora\ray.c" />
+    <ClCompile Include="Ora\playerPowers.c" />
+    <ClCompile Include="Ora\Pbdfluid.c" />
+    <ClCompile Include="Ora\oraGLTF.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Downloads\blackhole\scene.bin">
+      <Filter>Ora Sources</Filter>
+    </None>
+    <None Include="..\..\..\Downloads\blackhole.glb" />
   </ItemGroup>
 </Project>

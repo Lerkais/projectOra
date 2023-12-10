@@ -1,0 +1,39 @@
+{
+  "weapons": [
+    {
+      "name": "excalibur",
+      "damageAdditive": 10,
+      "defenseAdditive": 5,
+      "speedAdditive": 1,
+      "critAdditive": 10
+    },
+    {
+      "name": "Brunrah",
+      "damageAdditive": 10,
+      "defenseAdditive": 5,
+      "speedAdditive": 1,
+      "critAdditive": 10
+    },
+    {
+      "name": "wet noodle",
+      "damageAdditive": 10,
+      "defenseAdditive": 5,
+      "speedAdditive": 1,
+      "critAdditive": 10
+    },
+    {
+      "name": "The fitness gram pacer test",
+      "damageAdditive": 10,
+      "defenseAdditive": 5,
+      "speedAdditive": 1,
+      "critAdditive": 10
+    },
+    {
+      "name": "Death",
+      "damageAdditive": 10,
+      "defenseAdditive": 5,
+      "speedAdditive": 1,
+      "critAdditive": 10
+    }
+  ]
+}

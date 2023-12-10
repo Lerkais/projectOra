@@ -203,11 +203,11 @@ void gfc_hashmap_delete_by_key(HashMap *map,const char *key)
     }
 }
 
-List *gfc_hashmap_get_all_values(HashMap *map)
+gfcList *gfc_hashmap_get_all_values(HashMap *map)
 {
     int i;
     HashElement *element;
-    List *valueList = NULL;
+    gfcList *valueList = NULL;
     if ((!map) || (!map->map))return NULL;
     valueList = gfc_list_new();
     for (i = 0; i < map->map->size; i++)
@@ -223,7 +223,7 @@ void gfc_hashmap_foreach(HashMap *map, gfc_work_func func)
 {
     int i,c;
     void *item;
-    List *items;
+    gfcList *items;
     if ((!map)||(!func))return;
     items = gfc_hashmap_get_all_values(map);
     if (!items)return;
@@ -241,7 +241,7 @@ void gfc_hashmap_foreach_context(HashMap *map, gfc_work_func_context func,void *
 {
     int i,c;
     void *item;
-    List *items;
+    gfcList *items;
     if ((!map)||(!func))return;
     items = gfc_hashmap_get_all_values(map);
     if (!items)return;

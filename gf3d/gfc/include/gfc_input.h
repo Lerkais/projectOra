@@ -40,10 +40,10 @@ typedef struct
 typedef struct
 {
     TextLine command;
-    List *keyCodes;                     /**<list of keys that must be pressed together to count as a single input*/
+    gfcList *keyCodes;                     /**<list of keys that must be pressed together to count as a single input*/
     Uint8 controller;                   /**<Index of the controller to use to update this input*/
-    List *buttons;                      /**<list of buttons that must be pressed together to count as a single input*/
-    List *axes;                         /**<list of axes that must be pressed together to count as a single input*/
+    gfcList *buttons;                      /**<list of buttons that must be pressed together to count as a single input*/
+    gfcList *axes;                         /**<list of axes that must be pressed together to count as a single input*/
     int downCount;
     Uint32 pressTime;                   /**<clock ticks when button was pressed*/
     InputEventType state;               /**<updated each frame*/

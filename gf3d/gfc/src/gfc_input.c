@@ -6,7 +6,7 @@
 
 typedef struct
 {
-    List *input_list;
+    gfcList *input_list;
     const Uint8 * input_keys;
     Uint8 * input_old_keys;
     int input_key_count;
@@ -14,7 +14,7 @@ typedef struct
     int mouse_wheel_y;
     int mouse_wheel_x_old;
     int mouse_wheel_y_old;
-    List *controllers;
+    gfcList *controllers;
     SJson *controller_button_map;
     SJson *controller_axis_map;
 }GFC_InputData;
@@ -560,11 +560,11 @@ InputEventType gfc_input_command_get_state(const char *command)
     return in->state;
 }
 
-List *gfc_input_get_by_scancode(SDL_Scancode keysym)
+gfcList *gfc_input_get_by_scancode(SDL_Scancode keysym)
 {
     int i,c,kc,ki;
     Input *in;
-    List *keylist = NULL;
+    gfcList *keylist = NULL;
     keylist = gfc_list_new();
     
     c = gfc_list_get_count(gfc_input_data.input_list);

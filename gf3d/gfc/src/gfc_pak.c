@@ -13,7 +13,7 @@ typedef struct
 
 typedef struct
 {
-    List *pak_files;
+    gfcList *pak_files;
 }GFC_PakManager;
 
 static GFC_PakManager pak_manager = {0};

@@ -27,6 +27,7 @@ Charenemy* populateCharacters(char* filepath)
 	unsigned char c = sj_array_get_count(keys);
 
 	CharenemyList = malloc(sizeof(Charenemy *) * c);
+	if (!CharenemyList) return;
 	CharenemyListSize = c;
 	
 	for(int i = 0; i < c; i++)
@@ -43,10 +44,10 @@ Charenemy* populateCharacters(char* filepath)
 		sj_object_get_value_as_int(idp, "UID",&(refp->uid));
 		//char* name = sj_object_get_value_as_string(idp, "name");
 
-		refp->weapon.critAddittive = 1;
+		refp->weapon.critAdditive = 1;
 		refp->weapon.damageAdditive = 1;
-		refp->weapon.defenseAddittive = 1;
-		refp->weapon.speedAddittive = 1;
+		refp->weapon.defenseAdditive = 1;
+		refp->weapon.speedAdditive = 1;
 
 		refp->cooldownMax.basic = 1;
 		refp->cooldownMax.heavy = 5;
@@ -122,9 +123,9 @@ Stat getModifiedStats(Charenemy* self)
 	Stat ret = self->stats;
 	Weapon src = self->weapon;
 	ret.attack += src.damageAdditive;
-	ret.critRate += src.critAddittive;
-	ret.defense += src.defenseAddittive;
-	ret.speed += src.speedAddittive;
+	ret.critRate += src.critAdditive;
+	ret.defense += src.defenseAdditive;
+	ret.speed += src.speedAdditive;
 	return ret;
 }
 
@@ -171,7 +172,7 @@ unsigned char tickcds(Charenemy* self)
 void takeDamageCharenemy(Charenemy* self, float amount)
 {
 	self->health -= amount;
-	if (self->health < 0)
+	if (self->health <= 0)
 	{
 		kill(self);
 	}

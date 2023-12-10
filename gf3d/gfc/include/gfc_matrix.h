@@ -102,13 +102,11 @@ void gfc_matrix_perspective(
 
 /**
  * @brief map screen coordinates into 3d world coordinate
- * @note use this twice, with z value 0 and z value 1 to create a trace segment to determine what
- *       is beneath the screen position
  * @param in the screen coordinates to map
  * @param view the view matrix of the scene
  * @param proj the projection matrix of the scene
  * @param viewport screen extent (x,y)
- * @return 3d scene coordinates of the screen coordinates
+ * @return 3d direction indicating the direction from camera to world space based on screen position
  */
 Vector3D gfc_unproject(Vector3D in,Matrix4 view, Matrix4 proj,Vector2D viewport);
 

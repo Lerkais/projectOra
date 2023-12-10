@@ -14,12 +14,14 @@ typedef enum ObjectType_E {
 	projectile,
 	particle,
 	specialAttack,
+	camera,
 	other
 }ObjectType;
 
 typedef struct CharenemyObject_S {
 	Charenemy* charenemy;
 }CharenemyObject;
+
 
 typedef struct ProjectileObject_S {
 	//Projectile 

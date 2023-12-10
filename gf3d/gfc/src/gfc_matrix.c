@@ -5,50 +5,69 @@
 #include "gfc_matrix.h"
 #include "simple_logger.h"
 
+
 /*
  * Code has been adapted from glm to C for this project
  */
-Vector3D gfc_unproject(Vector3D in,Matrix4 view, Matrix4 proj,Vector2D viewport)
+
+void gfc_matrix4_transpose(Matrix4 matrix) {
+    int i, j;
+    Matrix4 result;
+
+    for (i = 0; i < 4; ++i) {
+        for (j = 0; j < 4; ++j) {
+            result[i][j] = matrix[j][i];
+        }
+    }
+
+    for (i = 0; i < 4; ++i) {
+        for (j = 0; j < 4; ++j) {
+            matrix[i][j] = result[i][j];
+        }
+    }
+}
+Vector3D gfc_unproject(Vector3D in, Matrix4 view, Matrix4 proj, Vector2D viewport)
 {
-    Vector3D out = {0,0,0};
-    Matrix4 InvProj = {0},InvView = {0};
-    Vector4D tmp,obj,eye;
-    
-    if ((!viewport.x)||(!viewport.y))
+    Vector3D out = { 0,0,0 };
+    Matrix4 InvProj = { 0 }, InvView = { 0 };
+    Vector4D ndc,wor, eye,clip;
+
+    if ((!viewport.x) || (!viewport.y))
     {
         slog("cannot unproject into a view of zero width or height");
         return out;
     }
-    
-    gfc_matrix4_invert(InvProj,proj);
-    gfc_matrix4_invert(InvView,view);
-    
-    tmp.x =(2.0f*((in.x)/viewport.x))-1.0f,
-    tmp.y =(2.0f*((in.y)/viewport.y))-1.0f,
-    tmp.z = (in.z * 2) -1;
-    tmp.w = 1;
-        
-    gfc_matrix_M_multiply_v(
-        &eye,
-        InvView,
-        tmp);
 
-    gfc_matrix_M_multiply_v(
-        &obj,
-        InvProj,
-        eye);
-    
-    
-    if (!obj.w)
-    {
-        slog("bad unprojection");
-        return out;
-    }
-    out.x = obj.x/obj.w;
-    out.y = obj.y/obj.w;
-    out.z = obj.z/obj.w;
-    
-    return out;
+    ndc.x = (2.0f * in.x) / viewport.x - 1.0;
+    ndc.y = 1.0f - (2.0f * in.y) / viewport.y;
+    ndc.z = 1;
+    ndc.w = 1;
+
+    clip = vector4d(ndc.x, ndc.y, -1, 1);
+
+    gfc_matrix4_invert(InvProj, proj);  
+    gfc_matrix_M_multiply_v(&eye,InvProj, clip);
+    eye = vector4d(eye.x, eye.y, -1, 1);
+
+    gfc_matrix4_invert(InvView, view);
+    gfc_matrix_M_multiply_v(&wor, InvView, eye);
+    Vector3D dir = vector3d(wor.x, -wor.y, wor.z); //z is verticle axis in game
+    vector3d_normalize(&dir);
+
+    //printf("Game ray normalized: (%f,%f,%f)\n", dir.x, dir.y, dir.z);
+
+
+    //Test to see if invert and multiply result in identity matrix
+    Matrix4 test = { 0 };
+    //printf("testing matrix functions\n");
+    gfc_matrix_multiply(test, proj, InvProj);
+    //gfc_matrix4_slog(test);
+
+
+
+
+
+    return dir;
 }
 
 void gfc_matrix4_slog(Matrix4 mat)
@@ -108,6 +127,8 @@ void gfc_matrix4_to_vectors(
     }
 }
 
+
+
 void gfc_matrix4_from_vectors(
     Matrix4 out,
     Vector3D translation,
@@ -161,135 +182,42 @@ void gfc_matrix16_to_matrix4(Matrix4 m4,float m16[16])
     m4[3][3] = m16[15] ;
 }
 
-
 Uint8 gfc_matrix16_invert(float m[16], float invOut[16])
 {
     float inv[16], det;
     int i;
-    
-    inv[0] = m[5]  * m[10] * m[15] - 
-             m[5]  * m[11] * m[14] - 
-             m[9]  * m[6]  * m[15] + 
-             m[9]  * m[7]  * m[14] +
-             m[13] * m[6]  * m[11] - 
-             m[13] * m[7]  * m[10];
 
-    inv[4] = -m[4]  * m[10] * m[15] + 
-              m[4]  * m[11] * m[14] + 
-              m[8]  * m[6]  * m[15] - 
-              m[8]  * m[7]  * m[14] - 
-              m[12] * m[6]  * m[11] + 
-              m[12] * m[7]  * m[10];
+    inv[0] = m[5] * m[10] * m[15] - m[5] * m[14] * m[11] - m[6] * m[9] * m[15] + m[6] * m[13] * m[11] + m[7] * m[9] * m[14] - m[7] * m[13] * m[10];
+    inv[1] = -m[1] * m[10] * m[15] + m[1] * m[14] * m[11] + m[2] * m[9] * m[15] - m[2] * m[13] * m[11] - m[3] * m[9] * m[14] + m[3] * m[13] * m[10];
+    inv[2] = m[1] * m[6] * m[15] - m[1] * m[14] * m[7] - m[2] * m[5] * m[15] + m[2] * m[13] * m[7] + m[3] * m[5] * m[14] - m[3] * m[13] * m[6];
+    inv[3] = -m[1] * m[6] * m[11] + m[1] * m[10] * m[7] + m[2] * m[5] * m[11] - m[2] * m[9] * m[7] - m[3] * m[5] * m[10] + m[3] * m[9] * m[6];
+    inv[4] = -m[4] * m[10] * m[15] + m[4] * m[14] * m[11] + m[6] * m[8] * m[15] - m[6] * m[12] * m[11] - m[7] * m[8] * m[14] + m[7] * m[12] * m[10];
+    inv[5] = m[0] * m[10] * m[15] - m[0] * m[14] * m[11] - m[2] * m[8] * m[15] + m[2] * m[12] * m[11] + m[3] * m[8] * m[14] - m[3] * m[12] * m[10];
+    inv[6] = -m[0] * m[6] * m[15] + m[0] * m[14] * m[7] + m[2] * m[4] * m[15] - m[2] * m[12] * m[7] - m[3] * m[4] * m[14] + m[3] * m[12] * m[6];
+    inv[7] = m[0] * m[6] * m[11] - m[0] * m[10] * m[7] - m[2] * m[4] * m[11] + m[2] * m[8] * m[7] + m[3] * m[4] * m[10] - m[3] * m[8] * m[6];
+    inv[8] = m[4] * m[9] * m[15] - m[4] * m[13] * m[11] - m[5] * m[8] * m[15] + m[5] * m[12] * m[11] + m[7] * m[8] * m[13] - m[7] * m[12] * m[9];
+    inv[9] = -m[0] * m[9] * m[15] + m[0] * m[13] * m[11] + m[1] * m[8] * m[15] - m[1] * m[12] * m[11] - m[3] * m[8] * m[13] + m[3] * m[12] * m[9];
+    inv[10] = m[0] * m[5] * m[15] - m[0] * m[13] * m[7] - m[1] * m[4] * m[15] + m[1] * m[12] * m[7] + m[3] * m[4] * m[13] - m[3] * m[12] * m[5];
+    inv[11] = -m[0] * m[5] * m[11] + m[0] * m[9] * m[7] + m[1] * m[4] * m[11] - m[1] * m[8] * m[7] - m[3] * m[4] * m[9] + m[3] * m[8] * m[5];
+    inv[12] = -m[4] * m[9] * m[14] + m[4] * m[13] * m[10] + m[5] * m[8] * m[14] - m[5] * m[12] * m[10] - m[6] * m[8] * m[13] + m[6] * m[12] * m[9];
+    inv[13] = m[0] * m[9] * m[14] - m[0] * m[13] * m[10] - m[1] * m[8] * m[14] + m[1] * m[12] * m[10] + m[2] * m[8] * m[13] - m[2] * m[12] * m[9];
+    inv[14] = -m[0] * m[5] * m[14] + m[0] * m[13] * m[6] + m[1] * m[4] * m[14] - m[1] * m[12] * m[6] - m[2] * m[4] * m[13] + m[2] * m[12] * m[5];
+    inv[15] = m[0] * m[5] * m[10] - m[0] * m[9] * m[6] - m[1] * m[4] * m[10] + m[1] * m[8] * m[6] + m[2] * m[4] * m[9] - m[2] * m[8] * m[5];
 
-    inv[8] = m[4]  * m[9] * m[15] - 
-             m[4]  * m[11] * m[13] - 
-             m[8]  * m[5] * m[15] + 
-             m[8]  * m[7] * m[13] + 
-             m[12] * m[5] * m[11] - 
-             m[12] * m[7] * m[9];
-
-    inv[12] = -m[4]  * m[9] * m[14] + 
-               m[4]  * m[10] * m[13] +
-               m[8]  * m[5] * m[14] - 
-               m[8]  * m[6] * m[13] - 
-               m[12] * m[5] * m[10] + 
-               m[12] * m[6] * m[9];
-
-    inv[1] = -m[1]  * m[10] * m[15] + 
-              m[1]  * m[11] * m[14] + 
-              m[9]  * m[2] * m[15] - 
-              m[9]  * m[3] * m[14] - 
-              m[13] * m[2] * m[11] + 
-              m[13] * m[3] * m[10];
-
-    inv[5] = m[0]  * m[10] * m[15] - 
-             m[0]  * m[11] * m[14] - 
-             m[8]  * m[2] * m[15] + 
-             m[8]  * m[3] * m[14] + 
-             m[12] * m[2] * m[11] - 
-             m[12] * m[3] * m[10];
-
-    inv[9] = -m[0]  * m[9] * m[15] + 
-              m[0]  * m[11] * m[13] + 
-              m[8]  * m[1] * m[15] - 
-              m[8]  * m[3] * m[13] - 
-              m[12] * m[1] * m[11] + 
-              m[12] * m[3] * m[9];
-
-    inv[13] = m[0]  * m[9] * m[14] - 
-              m[0]  * m[10] * m[13] - 
-              m[8]  * m[1] * m[14] + 
-              m[8]  * m[2] * m[13] + 
-              m[12] * m[1] * m[10] - 
-              m[12] * m[2] * m[9];
-
-    inv[2] = m[1]  * m[6] * m[15] - 
-             m[1]  * m[7] * m[14] - 
-             m[5]  * m[2] * m[15] + 
-             m[5]  * m[3] * m[14] + 
-             m[13] * m[2] * m[7] - 
-             m[13] * m[3] * m[6];
-
-    inv[6] = -m[0]  * m[6] * m[15] + 
-              m[0]  * m[7] * m[14] + 
-              m[4]  * m[2] * m[15] - 
-              m[4]  * m[3] * m[14] - 
-              m[12] * m[2] * m[7] + 
-              m[12] * m[3] * m[6];
-
-    inv[10] = m[0]  * m[5] * m[15] - 
-              m[0]  * m[7] * m[13] - 
-              m[4]  * m[1] * m[15] + 
-              m[4]  * m[3] * m[13] + 
-              m[12] * m[1] * m[7] - 
-              m[12] * m[3] * m[5];
-
-    inv[14] = -m[0]  * m[5] * m[14] + 
-               m[0]  * m[6] * m[13] + 
-               m[4]  * m[1] * m[14] - 
-               m[4]  * m[2] * m[13] - 
-               m[12] * m[1] * m[6] + 
-               m[12] * m[2] * m[5];
-
-    inv[3] = -m[1] * m[6] * m[11] + 
-              m[1] * m[7] * m[10] + 
-              m[5] * m[2] * m[11] - 
-              m[5] * m[3] * m[10] - 
-              m[9] * m[2] * m[7] + 
-              m[9] * m[3] * m[6];
-
-    inv[7] = m[0] * m[6] * m[11] - 
-             m[0] * m[7] * m[10] - 
-             m[4] * m[2] * m[11] + 
-             m[4] * m[3] * m[10] + 
-             m[8] * m[2] * m[7] - 
-             m[8] * m[3] * m[6];
-
-    inv[11] = -m[0] * m[5] * m[11] + 
-               m[0] * m[7] * m[9] + 
-               m[4] * m[1] * m[11] - 
-               m[4] * m[3] * m[9] - 
-               m[8] * m[1] * m[7] + 
-               m[8] * m[3] * m[5];
-
-    inv[15] = m[0] * m[5] * m[10] - 
-              m[0] * m[6] * m[9] - 
-              m[4] * m[1] * m[10] + 
-              m[4] * m[2] * m[9] + 
-              m[8] * m[1] * m[6] - 
-              m[8] * m[2] * m[5];
-
-    det = m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12];
+    det = m[0] * inv[0] + m[4] * inv[1] + m[8] * inv[2] + m[12] * inv[3];
 
     if (det == 0)
         return false;
 
-    det = 1.0 / det;
+    det = 1.f / det;
 
     for (i = 0; i < 16; i++)
         invOut[i] = inv[i] * det;
+
     return true;
+
 }
+
 
 Uint8 gfc_matrix4_invert(Matrix4 mOut, Matrix4 mIn)
 {
@@ -298,6 +226,9 @@ Uint8 gfc_matrix4_invert(Matrix4 mOut, Matrix4 mIn)
     
     if (!gfc_matrix16_invert(m,m))return 0;
     gfc_matrix16_to_matrix4(mOut,m);
+
+    //gfc_matrix4_transpose(mOut);
+
     return 1;
 }
 
@@ -391,6 +322,7 @@ void gfc_matrix_v_multiply_M(
   out->w = ow;
 }
 
+
 void gfc_matrix_M_multiply_v(
   Vector4D * out,
   Matrix4    mat,
@@ -413,6 +345,29 @@ void gfc_matrix_M_multiply_v(
   out->z = oz;
   out->w = ow;
 }
+
+
+/*void gfc_matrix_M_multiply_v(
+    Vector4D* out,
+    Matrix4 mat,
+    Vector4D vec
+) {
+    float x, y, z, w;
+    float ox, oy, oz, ow;
+    if (!out) return;
+    x = vec.x;
+    y = vec.y;
+    z = vec.z;
+    w = vec.w;
+    ox = x * mat[0][0] + y * mat[1][0] + z * mat[2][0] + w * mat[3][0];
+    oy = x * mat[0][1] + y * mat[1][1] + z * mat[2][1] + w * mat[3][1];
+    oz = x * mat[0][2] + y * mat[1][2] + z * mat[2][2] + w * mat[3][2];
+    ow = x * mat[0][3] + y * mat[1][3] + z * mat[2][3] + w * mat[3][3];
+    out->x = ox;
+    out->y = oy;
+    out->z = oz;
+    out->w = ow;
+}*/
 
 void gfc_matrix_zero(Matrix4 zero)
 {

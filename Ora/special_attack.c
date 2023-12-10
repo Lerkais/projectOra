@@ -37,7 +37,7 @@ void initAttacks()
 Object* basicAttack(Object* creator,Object* target)
 {
 	Object* proj = NewObject();
-	void* bleh = creator->Data.charenemyObj.charenemy;
+	//void* bleh = creator->Data.charenemyObj.charenemy;
 	Stat stats = getModifiedStats(creator->Data.charenemyObj.charenemy);
 	proj->model = basicModel;
 	proj->scale = vector3d(.3, .3, .3);

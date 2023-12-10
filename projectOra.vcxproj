@@ -71,10 +71,14 @@
     <ClInclude Include="gf3d\include\gf3d_vqueues.h" />
     <ClInclude Include="gf3d\include\player.h" />
     <ClInclude Include="gf3d\include\world.h" />
+    <ClInclude Include="Ora\button.h" />
     <ClInclude Include="Ora\charenemy.h" />
     <ClInclude Include="Ora\collision.h" />
     <ClInclude Include="Ora\object.h" />
-    <ClInclude Include="Ora\sceneManager.c" />
+    <ClInclude Include="Ora\oraGLTF.h" />
+    <ClInclude Include="Ora\Pbdfluid.h" />
+    <ClInclude Include="Ora\playerPowers.h" />
+    <ClInclude Include="Ora\ray.h" />
     <ClInclude Include="Ora\sceneManager.h" />
     <ClInclude Include="Ora\data_loader.h" />
     <ClInclude Include="Ora\special_attack.h" />
@@ -106,9 +110,9 @@
     <ClCompile Include="gf3d\gfc\src\gfc_types.c" />
     <ClCompile Include="gf3d\gfc\src\gfc_vector.c" />
     <ClCompile Include="gf3d\gfc\src\miniz.c" />
+    <ClCompile Include="gf3d\gfc\include\ora_base64.h" />
     <ClCompile Include="gf3d\src\agumon.c" />
     <ClCompile Include="gf3d\src\entity.c" />
-    <ClCompile Include="gf3d\src\game.c" />
     <ClCompile Include="gf3d\src\gf2d_draw.c" />
     <ClCompile Include="gf3d\src\gf2d_font.c" />
     <ClCompile Include="gf3d\src\gf2d_sprite.c" />
@@ -135,9 +139,19 @@
     <ClCompile Include="gf3d\src\world.c" />
     <ClCompile Include="Ora\charenemy.c" />
     <ClCompile Include="Ora\object.c" />
+    <ClCompile Include="Ora\oraGLTF.c" />
+    <ClCompile Include="Ora\ora_game.c" />
+    <ClCompile Include="Ora\Pbdfluid.c" />
+    <ClCompile Include="Ora\playerPowers.c" />
+    <ClCompile Include="Ora\ray.c" />
+    <ClCompile Include="Ora\sceneManager.c" />
     <ClCompile Include="Ora\special_attack.c" />
     <ClCompile Include="Ora\oratime.c" />
     <ClCompile Include="Ora\weapon.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Downloads\blackhole.glb" />
+    <None Include="..\..\..\Downloads\blackhole\scene.bin" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -35,7 +35,7 @@ typedef struct
 
 typedef struct
 {
-    List* map;      /**<the hash values*/
+    gfcList* map;      /**<the hash values*/
     Uint32 size;    /**<how many values are available in the hash*/
     Uint32 seed;    /**<the seed to calculate the hashed*/
 }HashMap;
@@ -82,7 +82,7 @@ void gfc_hashmap_delete_by_key(HashMap *map,const char *key);
  * @note: the list itself will need to be freed by gfc_list_delete
  * @note use this to clean up a hashmap before deleting it
  */
-List *gfc_hashmap_get_all_values(HashMap *map);
+gfcList *gfc_hashmap_get_all_values(HashMap *map);
 
 /**
  * @brief run a function on all values in a hashmap

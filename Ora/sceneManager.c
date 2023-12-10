@@ -35,6 +35,7 @@ Scene* NewScene(SceneType type)
 	default:
 		ret->Id = NewID(sceneManager);
 		char* buff = calloc(50, sizeof(char));
+		if (buff == NULL) return;
 		sprintf(buff, "Scene%i", ret->Id);
 		ret->name = buff;
 		ret->objectCount = 0;
@@ -73,6 +74,7 @@ void AddSceneObject(Scene* scene, Object* object)
 	{
 		scene->objectSize *= 2;
 		Object** temp = malloc(sizeof(Object*) * scene->objectSize);
+		if (temp == NULL)return;
 		for (int i = 0; i < scene->objectCount; i++) 
 		{
 			temp[i] = scene->objects[i];
@@ -95,6 +97,7 @@ void RemoveSceneObject(Scene* scene, Object* object)
 			{
 				if (i != scene->objectCount-1)
 				{
+					FreeObject(scene->objects[i]);
 					scene->objects[i] = scene->objects[scene->objectCount-1];
 				}					
 				scene->objectCount--;
@@ -118,15 +121,16 @@ void DrawSceneObjects(Scene* scene)
 	}
 }
 
-bool FreeScene(int sceneID)
+bool FreeScene(Scene* scene)
 {
+	if (!scene)return false;
 	for (int i = 0; i < sceneManager->count; i++)
 	{
-		if (sceneManager->scenes[i]->Id = sceneID)
+		if (sceneManager->scenes[i] == scene)
 		{
-			//free(sceneManager->scenes[i].)
-			//sceneManger->scenes[i] =
+			//remove scene from manager
 		}
+		
 	}
 	return false;
 }
@@ -165,9 +169,29 @@ void LoadScene(Scene* scene)
 
 	sceneManager->activeScene = scene;
 
-	for (int i = 0; i < sceneManager->count; i++)
+	for (int i = 0; i < sceneManager->activeScene->objectCount; i++)
 	{
 		scene->objects[i]->isActive = true;
 	}
 
 }
+
+Scene* UnloadActiveScene()
+{
+	Scene* actS = sceneManager->activeScene;
+	for (int i = 0; i < actS->objectCount; i++)
+	{
+		actS->objects[i]->isActive = false;
+	}
+
+	sceneManager->activeScene = NewScene(otherscene);
+	sceneManager->activeScene->name = "BLANK";
+
+	return actS;
+
+}
+
+
+
+
+//todo void UnloadScene();
