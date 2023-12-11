@@ -10,8 +10,8 @@ typedef struct Node_S Node;
 typedef struct Buffer_S
 {
     unsigned long byteLength;
-    char* uri; // file path relative
-    void* data;
+    char uri[256]; // file path relative
+    char* data;
 } Buffer;
 
 typedef struct BufferView_S
@@ -27,11 +27,11 @@ typedef struct BufferView_S
 
 typedef struct Accessor_S
 {
-    BufferView bufferView;
+    int bufferView;
     unsigned long byteOffset;
     unsigned int componentType;
     unsigned int count;
-    char* type;
+    char type[16];
     int* max; // used differently based on type
     int* min; // ditto
 } Accessor;
@@ -70,18 +70,26 @@ typedef struct Material_S //todo
     char* name;
 } Material;
 
+typedef struct OraAtribute_S
+{
+    int normal;
+    int position;
+    unsigned int* texcoords;
+    unsigned int texcoordscount;
+}OraAtribute;
+
 typedef struct MeshPrimitive_S
 {
-    unsigned int vertexBufferIndex;
-    unsigned int indexBufferIndex;
-    unsigned int materialIndex;
+    OraAtribute atributes; //geometric data
+    unsigned int indices;
+    unsigned int material;
     unsigned int mode;
 } MeshPrimitive;
 
 typedef struct OraMesh_S
 {
     MeshPrimitive* primitives;
-    unsigned int numPrimitives;
+    unsigned int primcount;
 } OraMesh;
 
 typedef struct gltfModel_S
@@ -101,10 +109,10 @@ typedef struct gltfModel_S
     unsigned int materialCount;
     OraMesh* meshes;
     unsigned int meshCount;
+    Mesh* gfmeshes; //same count as meshes
     Image* images;
     unsigned int imageCount;
 } gltfModel;
 
-// Load glTF model from file
-gltfModel* loadGltfModel(const char* filePath);
-
+// Load glTF model from file into standard model struct
+Model* loadModelfromgltf(const char* filename);

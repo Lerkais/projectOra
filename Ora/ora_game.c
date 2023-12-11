@@ -289,10 +289,8 @@ int game()
 
 	//gltf testing
 
-	loadGltfModel("C:\\Users\\funru\\source\\repos\\projectOra\\gf3d\\models\\blackhole\\scene\.gltf");
-
-
-
+	Model* m10 = loadModelfromgltf("C:\\Users\\funru\\source\\repos\\projectOra\\gf3d\\models\\blackhole\\blackhole\.gltf");
+	gd.charen[0]->model = m10;
 
 	Mix_PlayMusic(gd.bgmusic,0);
 	Mix_VolumeMusic(64);
