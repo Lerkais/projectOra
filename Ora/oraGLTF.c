@@ -1,7 +1,7 @@
 #include "oraGLTF.h"
 #include "simple_logger.h"
 
-void testModel(gltfModel m);
+void testModel(gltfModel* m);
 
 void getfolderpath(const char* filePath, char* folderPath) {
 	//Find the last occurrence of the directory separator ('/' or '\') in the file path
@@ -27,6 +27,7 @@ void getfolderpath(const char* filePath, char* folderPath) {
 // Load glTF model from file
 gltfModel* loadGltfModel(const char* filePath)
 {
+
 	SJson* json, *bvjson,*bjsons,*bjson;
 
 	json = sj_load(filePath);
@@ -83,7 +84,7 @@ gltfModel* loadGltfModel(const char* filePath)
 	accs = sj_object_get_value(json, "accessors");
 	model->accessorCount = sj_array_get_count(accs);
 	model->accessors = calloc(model->accessorCount, sizeof(Accessor)); if (!model->accessors) return;
-	for (int i = 0; i < model->accessorCount; i++)
+	for (unsigned int i = 0; i < model->accessorCount; i++)
 	{
 		Accessor accessor = {0};
 		SJson* sjacc;
@@ -114,7 +115,7 @@ gltfModel* loadGltfModel(const char* filePath)
 		primitives = sj_object_get_value(sjmesh, "primitives");
 		mesh.primcount = sj_array_get_count(primitives);
 		mesh.primitives = calloc(mesh.primcount, sizeof(MeshPrimitive));
-		for (int j = 0; j < mesh.primcount; j++)
+		for (unsigned int j = 0; j < mesh.primcount; j++)
 		{
 			sjprim = sj_array_get_nth(primitives, j);
 			atri = sj_object_get_value(sjprim, "attributes");
@@ -124,7 +125,7 @@ gltfModel* loadGltfModel(const char* filePath)
 			prim.atributes.texcoords = calloc(texcount, sizeof(int));
 			sj_object_get_value_as_int(atri, "NORMAL", &prim.atributes.normal);
 			sj_object_get_value_as_int(atri, "POSITION", &prim.atributes.position);
-			for (int k = 0; k < texcount; k++)
+			for (unsigned int k = 0; k < texcount; k++)
 			{
 				char key[16] = "TEXCOORD_",toapp[8];
 				sprintf(toapp, "%i", k);
@@ -134,7 +135,7 @@ gltfModel* loadGltfModel(const char* filePath)
 			}
 			if (sj_object_get_value_as_int(sjprim, "indices", &prim.indices))
 			{
-				//todo indices
+				
 
 			}
 			if (sj_object_get_value_as_int(sjprim, "material", &prim.material))
@@ -158,22 +159,28 @@ gltfModel* loadGltfModel(const char* filePath)
 	bvjson = sj_object_get_value(json, "bufferViews");
 	model->bufferViewsCount = sj_array_get_count(bvjson);
 	BufferView* bvs = calloc(model->bufferViewsCount, sizeof(BufferView));
+	if (!bvs)
+		return;
 	model->bufferViews = bvs;
 
-	for (int i = 0; i < model->bufferViewsCount; i++)
+	for (unsigned int i = 0; i < model->bufferViewsCount; i++)
 	{
 		BufferView bv={0};
 		SJson* idp = sj_array_get_nth(bvjson, i);
-		sj_object_get_value_as_int(idp, "buffer", bv.buffer);
-		sj_object_get_value_as_int(idp, "byteLength", bv.byteLength);
-		sj_object_get_value_as_int(idp, "byteOffset", bv.byteOffset);
-		sj_object_get_value_as_int(idp, "byteStride", bv.byteStride);
+		sj_object_get_value_as_int(idp, "buffer", &bv.buffer);
+		sj_object_get_value_as_int(idp, "byteLength", &bv.byteLength);
+		sj_object_get_value_as_int(idp, "byteOffset", &bv.byteOffset);
+		sj_object_get_value_as_int(idp, "byteStride", &bv.byteStride);
 		bv.byteStride = max(bv.byteStride, 1);
-		sj_object_get_value_as_int(idp, "target", bv.target);
+		sj_object_get_value_as_int(idp, "target", &bv.target);
 		model->bufferViews[i] = bv;
 	}
 
-	testModel(*model);
+
+	//image setup
+
+
+	testModel(model);
 
 	return model;
 
@@ -188,7 +195,13 @@ Model* loadModelfromgltf(const char* filename)
 	m->mesh = &(gm->gfmeshes[0]);
 	m->meshcount = gm->meshCount;
 	
+
+
 	m->texture = gf3d_texture_load("images/default.png");
+
+
+
+	
 
 	return m;
 }
@@ -198,7 +211,7 @@ void testModel(gltfModel* m)
 	//find all vertices and normals
 	Mesh* meshes = calloc(m->meshCount, sizeof(Mesh));
 
-	for (int i = 0; i < m->meshCount;i++)
+	for (unsigned int i = 0; i < m->meshCount;i++)
 	{
 		Mesh mesh;
 
@@ -209,13 +222,14 @@ void testModel(gltfModel* m)
 
 		if (!verts || !faces)
 		{
-			printf("fail");
+			//printf("fail");
 		}
 
-		for (int j = 0; j < m->meshes[i].primcount; j++)
+		for (unsigned int j = 0; j < m->meshes[i].primcount; j++)
 		{
 			int accPosInd = m->meshes[i].primitives[j].atributes.position;
 			int accNorInd = m->meshes[i].primitives[j].atributes.normal;
+			int indices = m->meshes[i].primitives[j].indices;
 
 			Accessor a1, a2;
 			a1 = m->accessors[accPosInd];
@@ -233,13 +247,23 @@ void testModel(gltfModel* m)
 			data1 = (bu1.data + b1.byteOffset);
 			data2 = (bu2.data + b2.byteOffset);
 
+			//counts are how many vector3's there are
 			int c1, c2;
 			c1 = a1.count;
 			c2 = a2.count;
-
 			
-			vcount += c1;
-			fcount += c1 / 3;
+			vcount += c1;//A pos is 3 floats, count is given by json file
+			
+			//face's vertex's are indicaited by three indexs stored in accessor at index "indices"
+
+			Accessor inAcc = m->accessors[indices];
+			BufferView inbv = m->bufferViews[inAcc.bufferView];
+			Buffer inb = m->buffers[inbv.buffer];
+
+			char* indata = (inb.data + inbv.byteOffset);
+			int incount = inAcc.count; //5123 for component type means unsigned short
+
+			fcount += incount/3;
 
 			void* temp1, *temp2;
 
@@ -263,35 +287,45 @@ void testModel(gltfModel* m)
 				faces = temp2;
 			}
 
-			
-			
+
+			size_t traversalSize = sizeof(float) * 3;
 
 			//normals and positions are vector3's
-			for (int k = 0; k < c1; k++)
+			//traverse by 3 floats at a time
+			for (unsigned int k = 0; k < c1; k++)
 			{
 				Vertex ver = { 0 };
-				float* v = data1 + k * max(sizeof(float), b1.byteStride);
-				ver.vertex = vector3d(v[0], v[1], v[2]);
+				float* v = data1 + k * traversalSize;
+				ver.vertex = vector3d(v[0], v[2], v[1]);
 				if (abs(v[0]) > .0001f || abs(v[1]) > .0001f || abs(v[2]) > .0001f) {
-					//printf("Triangle:\n(%f,%f,%f)\n", v[0], v[1], v[2]);
+					//printf("Vert:\n(%f,%f,%f)\n", v[0], v[1], v[2]);
 				}
 				verts[k] = ver;
-				
-				if (k % 3 == 0 && k / 3 < fcount)
-				{
-					Face face;
-					face.verts[0] = k;
-					face.verts[1] = k+1;
-					face.verts[2] = k+2;
-					faces[k / 3] = face;
-				}
 			}
-			for (int k = 0; k < c1; k++)
+			for (unsigned int k = 0; k < c1; k++)
 			{
-				float* v = data2 + k * max(sizeof(float), b2.byteStride);
-				//if (abs(v[0]) > .0001f || abs(v[1]) > .0001f || abs(v[2] > .0001f)) {	}
+				float* v = data2 + k * traversalSize;//, b2.byteStride);
+				//if (abs(v[0]) > .0001f || abs(v[1]) > .0001f || abs(v[2] > .0001f)) { printf("Normal:\n(%f,%f,%f)\n", v[0], v[2], v[1]); }
 				verts[k].normal = vector3d(v[0], v[1], v[2]);
 			}
+
+			//parse faces
+
+			//printf("Indices count to vert count: %i,%i\n", incount,c1);
+
+			for (unsigned int k = 0; k < incount/3; k++)
+			{
+				Face face = {0};
+				unsigned short* ind = indata + 3 * k * sizeof(unsigned short);
+				face.verts[0] = ind[0];
+				face.verts[1] = ind[1];
+				face.verts[2] = ind[2];
+				faces[k] = face;
+			}
+			unsigned short* as = indata;
+
+			printf("indata: (%i,%i,%i), bufferview: %i\n", as[0], as[1], as[2],inAcc.bufferView);
+
 
 			gf3d_mesh_create_vertex_buffer_from_vertices(&mesh, verts, vcount, faces, fcount);
 			printf("done with mesh %i of %i\n",i+1,m->meshCount);
@@ -312,4 +346,5 @@ void testModel(gltfModel* m)
 	}
 
 	m->gfmeshes = meshes;
+
 }
