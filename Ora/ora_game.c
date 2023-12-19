@@ -569,12 +569,12 @@ void explore()
 		if (alive == 0)
 		{
 			unsigned char a = rand() % 100;
-			if (a > 0)
+			if (a > 0) //for demo purpases it is 100% chance;
 			{
 				gd.weapons = gd.weapons | (1 << ((int)(rand() % 6)));
 				printf("%i",gd.weapons);
 			}
-			saveWeapons(WEAPON_FILEPATH, gd.weapons);
+			saveWeapons(WEAPONSAVE_FILEPATH, gd.weapons);
 			break;
 		}
 
@@ -934,6 +934,7 @@ void battle(Object* a, Object* b)
 			cds = tickcds(ab[i]->Data.charenemyObj.charenemy);
 			if (i == 1 && !canAttak)
 				break;
+
 			if (cds & 0b100)
 			{
 				Object* projtoadd = basicAttack(ab[i], ab[i ^ 1]);
