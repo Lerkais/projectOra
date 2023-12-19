@@ -151,6 +151,9 @@ void initGame()
 	gd.w = 1000;
 	gd.h = 500;
 
+	powers[0] = true;
+	powers[1] = true;
+
 	//Init Keys enum
 	gd.keys = SDL_GetKeyboardState(NULL);
 
@@ -869,12 +872,37 @@ void battle(Object* a, Object* b)
 		
 		a->rotation = vector3d(0, 0, 2.0f);
 
-		powers[0] = false; // Insta Kill
-		powers[1] = false; // Speed Up Basics
+		powers[0]; // Insta Kill
+		powers[1]; // Speed Up Basics
 		powers[2] = (gd.sm->activeScene->data.battleData.playerChar->Data.charenemyObj.charenemy->cooldownTimers.special <= 0); //Special attack
 		powers[3] = a->Data.charenemyObj.charenemy->isDead; // Stop enemy attacks
 		powers[4] = true; //hide ui
 		powers[5] = DemoMode;
+
+
+		if (powers[0] && gd.keys[SDL_SCANCODE_1])
+		{
+			b->Data.charenemyObj.charenemy->isDead = true;
+			b->Data.charenemyObj.charenemy->health = 0;
+			powers[0] = false;
+		}
+
+
+
+		bool canAttak = true;
+		if (powers[1] && gd.keys[SDL_SCANCODE_2] && used2Duration > 0)
+		{
+			used2Duration -= deltaTime;
+			canAttak = false;
+			powers[1] = false;
+		}
+		else if (used2Duration != 10 && used2Duration > 0)
+		{
+			used2Duration -= deltaTime;
+			canAttak = false;
+		}
+
+
 
 
 		for (int i = 0; i < 2; i++)
@@ -884,7 +912,8 @@ void battle(Object* a, Object* b)
 
 			//tick cool downs, cds format 0b000 to 0b111
 			cds = tickcds(ab[i]->Data.charenemyObj.charenemy);
-
+			if (i == 1 && !canAttak)
+				break;
 			if (cds & 0b100)
 			{
 				Object* projtoadd = basicAttack(ab[i], ab[i ^ 1]);

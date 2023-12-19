@@ -3,7 +3,7 @@
     {
       "name": "Retro",
       "UID" : "1",
-      "maxHealth": "100000",
+      "maxHealth": "1000",
       "attack": "20",
       "speed": "2",
       "defense": "2",
@@ -12,7 +12,7 @@
     {
       "name": "Alejan",
       "UID": "2",
-      "maxHealth": "110000",
+      "maxHealth": "1000",
       "attack": "2",
       "speed": "2",
       "defense": "20",

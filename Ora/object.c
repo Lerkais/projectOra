@@ -89,7 +89,6 @@ void DrawObject(Object* self) {
     if (!self->model)return;
     if (self->draw) self->draw(self->model, self->modelMat, gfc_color_to_vector4f(self->color), vector4d(1, 1, 1, 1));
 }
-
 void UpdateMe(Object* self) {
     if (!self)return;
     if (!self->isStatic) 
