@@ -25,6 +25,16 @@ void gfc_matrix_copy(
     Matrix4 s
   );
 
+void gfc_matrix_orthographic(
+    Matrix4 out,
+    float left,
+    float right,
+    float bottom,
+    float top,
+    float near,
+    float far
+);
+
 /**
  * @brief set the matrix to an identity matrix
  * @param one the matrix to become an identity

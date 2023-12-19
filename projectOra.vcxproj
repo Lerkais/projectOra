@@ -124,7 +124,7 @@
     <ClCompile Include="gf3d\src\gf3d_device.c" />
     <ClCompile Include="gf3d\src\gf3d_extensions.c" />
     <ClCompile Include="gf3d\src\gf3d_mesh.c" />
-    <ClCompile Include="gf3d\src\gf3d_model.c" />
+    <ClCompile Include="gf3d\include\gf3d_model.c" />
     <ClCompile Include="gf3d\src\gf3d_obj_load.c" />
     <ClCompile Include="gf3d\src\gf3d_particle.c" />
     <ClCompile Include="gf3d\src\gf3d_pipeline.c" />
@@ -152,6 +152,8 @@
   <ItemGroup>
     <None Include="..\..\..\Downloads\blackhole.glb" />
     <None Include="..\..\..\Downloads\blackhole\scene.bin" />
+    <None Include="..\..\..\Downloads\frag.spv" />
+    <None Include="..\..\..\Downloads\vert.spv" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

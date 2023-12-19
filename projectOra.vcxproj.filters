@@ -292,7 +292,7 @@
     <ClCompile Include="gf3d\src\gf3d_mesh.c">
       <Filter>gf3d\Sources</Filter>
     </ClCompile>
-    <ClCompile Include="gf3d\src\gf3d_model.c">
+    <ClCompile Include="gf3d\include\gf3d_model.c">
       <Filter>gf3d\Sources</Filter>
     </ClCompile>
     <ClCompile Include="gf3d\src\gf3d_obj_load.c">
@@ -373,5 +373,7 @@
       <Filter>Ora Sources</Filter>
     </None>
     <None Include="..\..\..\Downloads\blackhole.glb" />
+    <None Include="..\..\..\Downloads\vert.spv" />
+    <None Include="..\..\..\Downloads\frag.spv" />
   </ItemGroup>
 </Project>

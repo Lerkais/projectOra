@@ -58,11 +58,15 @@
 
 char path[256];
 
-bool Initialized = false, DemoMode = false, clicked = false, camCanMove = true;
+bool powers[6];
+
+bool Initialized = false, DemoMode = false, clicked = false, camCanMove = true, showUI = true;
 char* ImageDir; //Need to be init
 Charenemy** charas;
 char CWD[256];
 SDL_Event ev;
+
+Object* world;
 
 typedef struct GameData_S
 {
@@ -177,8 +181,6 @@ void initGame()
 	slog_sync();
 
 
-
-
 	//init audio subsytem
 	Uint32 maxSounds = 10;
 	Uint32 channels = 2;
@@ -201,7 +203,13 @@ void initGame()
 
 	//Mouse sprite
 	gd.mouse = gf2d_sprite_load("images/pointer.png", 32, 32, 16);
-	
+
+
+	// Enviornment
+	world = NewObject();
+	world->model = loadModelfromgltf("C:\\Users\\funru\\source\\repos\\projectOra\\gf3d\\models\\player\\world\.gltf");
+	//world->model = gf3d_model_load_full("C:\\Users\\funru\\source\\repos\\projectOra\\gf3d\\models\\player\\world\.obj", "images/default.png");
+	world->draw = gltf_model_draw;
 
 	//init Charenemies
 	// index 0 to 2 are player's, 3 to 8 are enemies
@@ -289,10 +297,13 @@ int game()
 
 	//gltf testing
 
-	Model* m10 = loadModelfromgltf("C:\\Users\\funru\\source\\repos\\projectOra\\gf3d\\models\\blackhole\\blackhole\.gltf");
-	gd.charen[0]->model = m10;
+	//Model* m10 = loadModelfromgltf("C:\\Users\\funru\\source\\repos\\projectOra\\gf3d\\models\\blackhole\\blackhole\.gltf");
+	//Model* m10 = loadModelfromgltf("C:\\Users\\funru\\source\\repos\\projectOra\\gf3d\\models\\player\\player\.gltf");
+	//gd.charen[0]->model = m10;
+	//gd.charen[0]->draw = gltf_model_draw;
+	//gd.charen[0]->scale = vector3d(.5, .5, .6);
 
-	Mix_PlayMusic(gd.bgmusic,0);
+	Mix_PlayMusic(gd.bgmusic,2);
 	Mix_VolumeMusic(64);
 
 	//menu();
@@ -455,6 +466,8 @@ void explore()
 		positions[i] = &(gd.charen[i]->position);
 	}
 
+	AddSceneObject(exploreSceneInstance, world);
+
 	exploreSpawnLocations(positions);
 
 	LoadScene(exploreSceneInstance);
@@ -466,7 +479,8 @@ void explore()
 
 
 	//fluid
-	ParticleSpawner* s = newpSpawner(1, vector3d(0, 0, 15));
+	ParticleSpawner* s = newpSpawner(10, vector3d(0, 0, 15));
+	s->color = GFC_COLOR_CYAN;
 
 
 
@@ -532,7 +546,7 @@ void explore()
 		updateCamera(true);
 
 		for (int i = 0; i < 9; i++) {
-			gd.charen[i]->rotation.z += .1 * deltaTime;
+			//gd.charen[i]->rotation.z += .1 * deltaTime;
 		}
 
 		
@@ -755,9 +769,9 @@ void battleSelection(Object* enemy)
 		
 		//gd.camobj->position.x += .1 * deltaTime;
 
-		charm1->rotation.z += 1 * deltaTime;
-		charm2->rotation.z += 1 * deltaTime;
-		charm3->rotation.z += 1 * deltaTime;
+		//charm1->rotation.z += 1 * deltaTime;
+		//charm2->rotation.z += 1 * deltaTime;
+		//charm3->rotation.z += 1 * deltaTime;
 
 		
 
@@ -779,12 +793,6 @@ void battleSelection(Object* enemy)
 		{
 			memcpy(batt1, charm3, sizeof(Object));
 			end = true;
-		}
-
-		if (buttonBlip(*buttQt))
-		{
-			blipEnd();
-			break;
 		}
 
 		DrawSceneObjects(battleSelect);
@@ -858,9 +866,16 @@ void battle(Object* a, Object* b)
 
 	//battle scene loop
 	while (!a->Data.charenemyObj.charenemy->isDead && !b->Data.charenemyObj.charenemy->isDead) {
-		//testing
-		a->rotation.z += .1 * deltaTime;
-		b->rotation.z += .1 * deltaTime;
+		
+		a->rotation = vector3d(0, 0, 2.0f);
+
+		powers[0] = false; // Insta Kill
+		powers[1] = false; // Speed Up Basics
+		powers[2] = (gd.sm->activeScene->data.battleData.playerChar->Data.charenemyObj.charenemy->cooldownTimers.special <= 0); //Special attack
+		powers[3] = a->Data.charenemyObj.charenemy->isDead; // Stop enemy attacks
+		powers[4] = true; //hide ui
+		powers[5] = DemoMode;
+
 
 		for (int i = 0; i < 2; i++)
 		{
@@ -897,6 +912,9 @@ void battle(Object* a, Object* b)
 		}
 
 
+
+
+
 		//graphics
 		blipStart();
 		events();
@@ -907,48 +925,48 @@ void battle(Object* a, Object* b)
 		
 
 
-		//Names
-
-		gf2d_draw_rect_filled(gfc_rect(890, 52, 200, 40), gfc_color8(128, 128, 10, 255));
-		gf2d_font_draw_line_tag(gd.sm->activeScene->data.battleData.enemyChar->Data.charenemyObj.charenemy->name, FT_H1, gfc_color(1, 1, 1, 1), vector2d(890, 52));
-
-		gf2d_draw_rect_filled(gfc_rect(10, 52, 200, 40), gfc_color8(128, 128, 10, 255));
-		gf2d_font_draw_line_tag(gd.sm->activeScene->data.battleData.playerChar->Data.charenemyObj.charenemy->name, FT_H1, gfc_color(1, 1, 1, 1), vector2d(10, 52));
 
 
-		//health
-		char buff[30];
-
-		gf2d_draw_rect_filled(gfc_rect(890, 52 + 25, 200, 34), gfc_color8(128, 128, 10, 255));
-		gf2d_font_draw_line_tag(_itoa(gd.sm->activeScene->data.battleData.enemyChar->Data.charenemyObj.charenemy->health, buff, 10), FT_H1, gfc_color(1, 1, 1, 1), vector2d(890, 52 + 25));
-
-		gf2d_draw_rect_filled(gfc_rect(10, 52 + 25, 200, 32), gfc_color8(128, 128, 10, 255));
-		gf2d_font_draw_line_tag(_itoa(gd.sm->activeScene->data.battleData.playerChar->Data.charenemyObj.charenemy->health, buff, 10), FT_H1, gfc_color(1, 1, 1, 1), vector2d(10, 52 + 25));
-
-		//cooldown - player
-		gf2d_draw_rect_filled(gfc_rect(10, 52 + 45, 200, 32), gfc_color8(128, 128, 10, 255));
-		gf2d_font_draw_line_tag(_itoa(gd.sm->activeScene->data.battleData.playerChar->Data.charenemyObj.charenemy->cooldownTimers.special, buff, 10), FT_H1, gfc_color(1, 1, 1, 1), vector2d(10, 52 + 45));
-
-		//mouse
-		updateCamera(false);
-
-
-		//powers
-
-		bool powers[5];
-		powers[0] = false;
-		powers[1] = false;
-		powers[2] = (gd.sm->activeScene->data.battleData.playerChar->Data.charenemyObj.charenemy->cooldownTimers.special <= 0);
-		powers[3] = a->Data.charenemyObj.charenemy->isDead;
-		powers[4] = b->Data.charenemyObj.charenemy->isDead;
-
-		for (int j = 0; j < 5; j++)
+		if (showUI)
 		{
-			if (powers[j])
-				gf2d_draw_rect_filled(gfc_rect(10 + 12 * j, 10, 10, 10), gfc_color8(128, 128, 10, 255));
-			else
-				gf2d_draw_rect_filled(gfc_rect(10 + 12 * j, 10, 10, 10), gfc_color8(128, 20, 10, 255));
+			//Names
+
+			gf2d_draw_rect_filled(gfc_rect(890, 52, 200, 40), gfc_color8(128, 128, 10, 255));
+			gf2d_font_draw_line_tag(gd.sm->activeScene->data.battleData.enemyChar->Data.charenemyObj.charenemy->name, FT_H1, gfc_color(1, 1, 1, 1), vector2d(890, 52));
+
+			gf2d_draw_rect_filled(gfc_rect(10, 52, 200, 40), gfc_color8(128, 128, 10, 255));
+			gf2d_font_draw_line_tag(gd.sm->activeScene->data.battleData.playerChar->Data.charenemyObj.charenemy->name, FT_H1, gfc_color(1, 1, 1, 1), vector2d(10, 52));
+
+
+			//health
+			char buff[30];
+
+			gf2d_draw_rect_filled(gfc_rect(890, 52 + 25, 200, 34), gfc_color8(128, 128, 10, 255));
+			gf2d_font_draw_line_tag(_itoa(gd.sm->activeScene->data.battleData.enemyChar->Data.charenemyObj.charenemy->health, buff, 10), FT_H1, gfc_color(1, 1, 1, 1), vector2d(890, 52 + 25));
+
+			gf2d_draw_rect_filled(gfc_rect(10, 52 + 25, 200, 32), gfc_color8(128, 128, 10, 255));
+			gf2d_font_draw_line_tag(_itoa(gd.sm->activeScene->data.battleData.playerChar->Data.charenemyObj.charenemy->health, buff, 10), FT_H1, gfc_color(1, 1, 1, 1), vector2d(10, 52 + 25));
+
+			//cooldown - player
+			gf2d_draw_rect_filled(gfc_rect(10, 52 + 45, 200, 32), gfc_color8(128, 128, 10, 255));
+			gf2d_font_draw_line_tag(_itoa(gd.sm->activeScene->data.battleData.playerChar->Data.charenemyObj.charenemy->cooldownTimers.special, buff, 10), FT_H1, gfc_color(1, 1, 1, 1), vector2d(10, 52 + 45));
+
+			//mouse
+			updateCamera(false);
+
+
+			//powers
+
+			for (int j = 0; j < 6; j++)
+			{
+				if (powers[j])
+					gf2d_draw_rect_filled(gfc_rect(10 + 12 * j, 10, 10, 10), gfc_color8(128, 128, 10, 255));
+				else
+					gf2d_draw_rect_filled(gfc_rect(10 + 12 * j, 10, 10, 10), gfc_color8(128, 20, 10, 255));
+			}
 		}
+
+		
 
 
 		blipEnd();

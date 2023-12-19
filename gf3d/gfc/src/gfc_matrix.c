@@ -540,6 +540,33 @@ void gfc_matrix_perspective(
     return;
 }
 
+void gfc_matrix_orthographic(
+    Matrix4 out,
+    float left,
+    float right,
+    float bottom,
+    float top,
+    float near,
+    float far
+) {
+    gfc_matrix_zero(out);
+
+    if (left == right || bottom == top || near == far) {
+        slog("gfc_matrix_orthographic_xyz: Invalid boundaries provided");
+        return;
+    }
+
+    out[0][0] = 2.0 / (right - left);    // Scale x
+    out[1][1] = 2.0 / (far - near);      // Scale z (now y)
+    out[2][2] = -2.0 / (top - bottom);   // Scale y (now -z)
+    out[3][0] = -(right + left) / (right - left);       // Translate x
+    out[3][1] = -(far + near) / (far - near);           // Translate z (now y)
+    out[3][2] = -(top + bottom) / (top - bottom);       // Translate y (now -z)
+    out[3][3] = 1.0;
+}
+
+
+
 void gfc_matrix_view(
     Matrix4  out,
     Vector3D position,

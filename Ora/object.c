@@ -1,5 +1,6 @@
 #include "object.h"
 #include "charenemy.h"
+#include "oraGLTF.h"
 #include <stdlib.h> // Include the necessary headers
 
 // Function to create a new object
@@ -32,6 +33,9 @@ Object* NewObject()
     newObject->isStatic = false;
     newObject->isActive = false;
     newObject->toBeDestroyed = false;
+
+    newObject->draw = gf3d_model_draw;
+
 
     gfc_matrix_identity(newObject->modelMat);
 
@@ -83,7 +87,7 @@ void DrawObject(Object* self) {
     if (!self)return;
     if (!(self->isActive || self->toBeDestroyed))return;
     if (!self->model)return;
-    if (self->model) gf3d_model_draw(self->model, self->modelMat, gfc_color_to_vector4f(self->color), vector4d(1, 1, 1, 1));
+    if (self->draw) self->draw(self->model, self->modelMat, gfc_color_to_vector4f(self->color), vector4d(1, 1, 1, 1));
 }
 
 void UpdateMe(Object* self) {
@@ -92,6 +96,9 @@ void UpdateMe(Object* self) {
     {
         vector3d_add(self->position, self->position, self->velocity);
         vector3d_add(self->velocity, self->acceleration, self->velocity);
+
+        //gltfModel* gmodel = self->model->data;
+
 
         gfc_matrix_identity(self->modelMat);
 

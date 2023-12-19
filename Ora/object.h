@@ -65,6 +65,8 @@ typedef struct Object_S {
 	ObjectType Type;
 	ObjectData Data;
 
+	int status;
+
 	void (*think)(struct Object_S* self); /**<pointer to the think function*/
 	void (*update)(struct Object_S* self); /**<pointer to the update function*/
 	void (*draw)(struct Object_S* self); /**<pointer to an optional extra draw funciton*/
