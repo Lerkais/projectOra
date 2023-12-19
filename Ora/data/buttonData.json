@@ -1,40 +1,32 @@
 {
   "Buttons": [
     {
-      "name": "Quit Button 1",
-      "x": 0,
-      "y": 0,
+      "name": "Start Button",
+      "x": 20,
+      "y": 20,
       "h": 100,
-      "w": 400,
-      "type": "quit",
-      "text": "Quit Game"
+      "w": 120
     },
     {
-      "name": "Quit Button 2",
-      "x": 100,
-      "y": 100,
+      "name": "Quit Button",
+      "x": 120,
+      "y": 120,
       "h": 100,
-      "w": 400,
-      "type": "quit",
-      "text": "Quit Game"
+      "w": 120
     },
     {
-      "name": "Quit Button 3",
-      "x": 0,
-      "y": 200,
+      "name": "Owned Weapons",
+      "x": 220,
+      "y": 220,
       "h": 100,
-      "w": 400,
-      "type": "quit",
-      "text": "Quit Game"
+      "w": 120
     },
     {
-      "name": "Quit Button 4",
-      "x": 0,
-      "y": 300,
+      "name": "Reset",
+      "x": 320,
+      "y": 320,
       "h": 100,
-      "w": 400,
-      "type": "quit",
-      "text": "Quit Game"
+      "w": 120
     }
   ]
 }

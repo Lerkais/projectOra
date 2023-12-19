@@ -84,6 +84,8 @@ unsigned char readWeapons(char* filepath)
 
 	sj_object_get_value_as_int(json,"weapons",&val);
 
+	sj_free(json);
+
 	return val;
 
 }

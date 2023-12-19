@@ -58,6 +58,11 @@
 
 char path[256];
 
+float aniTimer;
+Model* aniM;
+Model* aniO;
+bool aniB;
+
 bool powers[6];
 
 bool Initialized = false, DemoMode = false, clicked = false, camCanMove = true, showUI = true;
@@ -116,6 +121,8 @@ float used6cd = 1;
 float used6CDMax = 1;
 float demomodecd = 1;
 
+char wspath1[256];
+
 void events()
 {
 	SDL_PollEvent(&ev);
@@ -153,6 +160,10 @@ void initGame()
 
 	powers[0] = true;
 	powers[1] = true;
+	powers[3] = true;
+	powers[4] = true;
+
+	aniTimer = 1;
 
 	//Init Keys enum
 	gd.keys = SDL_GetKeyboardState(NULL);
@@ -171,8 +182,15 @@ void initGame()
 
 	strcpy(wspath, CWD);
 	strncat(wspath, WEAPONSAVE_FILEPATH, 29);
-	gd.weapons = readWeapons(wspath);
+	
+	strcpy(wspath1, wspath);
 
+
+
+	gd.weapons = readWeapons(wspath1);
+
+	
+	//saveWeapons(wspath, 0b00101);
 
 	//init subsystems
 	init_logger("gf3d.log", 0);
@@ -231,6 +249,11 @@ void initGame()
 		strcat(filepath, str2);
 		strcat(filepath, str3);
 		gd.charen[i]->model = gf3d_model_load(filepath);
+
+		if (i == 0)
+		{
+			aniO = gd.charen[0]->model;
+		}
 
 		//set position 
 		gd.charen[i]->position.x = (100 * i);
@@ -298,6 +321,7 @@ int game()
 	bool cont = true;
 	initGame();
 
+	aniB = true;
 	//gltf testing
 
 	//Model* m10 = loadModelfromgltf("C:\\Users\\funru\\source\\repos\\projectOra\\gf3d\\models\\blackhole\\blackhole\.gltf");
@@ -305,6 +329,9 @@ int game()
 	//gd.charen[0]->model = m10;
 	//gd.charen[0]->draw = gltf_model_draw;
 	//gd.charen[0]->scale = vector3d(.5, .5, .6);
+
+	//ani
+	aniM = gf3d_model_load_full("models/c/c02.obj", "models/troop/troop.png");
 
 	Mix_PlayMusic(gd.bgmusic,2);
 	Mix_VolumeMusic(64);
@@ -353,9 +380,54 @@ void* menu()
 {
 	if (!Initialized) return;
 	//button init
-	Button* startButton = newButton(vector4d(20, 20, 100, 120), "Start Button");
-	Button* quitButton = newButton(vector4d(120, 120, 100, 120), "Quit Button");
-	Button* ownedWeapons = newButton(vector4d(220, 220, 100, 120), "Owned Weapons");
+
+	SJson* json = sj_load("C:/Users/funru/source/repos/projectOra/Ora/data/buttonData\.json");
+	SJson* jsonbutts = sj_object_get_value(json, "Buttons");
+
+	int a[4], b[4], c[4];
+
+	char d[20], e[20], f[20];
+
+	SJson* sjbutt = sj_array_get_nth(jsonbutts, 0);
+	
+	sj_object_get_value_as_int(sjbutt, "x", &a[0]);
+	sj_object_get_value_as_int(sjbutt, "y", &a[1]);
+	sj_object_get_value_as_int(sjbutt, "h", &a[2]);
+	sj_object_get_value_as_int(sjbutt, "w", &a[3]);
+
+	strcpy(d, sj_object_get_value_as_string(sjbutt,"name"));
+
+	sjbutt = sj_array_get_nth(jsonbutts, 1);
+
+	sj_object_get_value_as_int(sjbutt, "x", &b[0]);
+	sj_object_get_value_as_int(sjbutt, "y", &b[1]);
+	sj_object_get_value_as_int(sjbutt, "h", &b[2]);
+	sj_object_get_value_as_int(sjbutt, "w", &b[3]);
+
+	strcpy(e, sj_object_get_value_as_string(sjbutt, "name"));
+
+
+	sjbutt = sj_array_get_nth(jsonbutts, 2);
+
+	sj_object_get_value_as_int(sjbutt, "x", &c[0]);
+	sj_object_get_value_as_int(sjbutt, "y", &c[1]);
+	sj_object_get_value_as_int(sjbutt, "h", &c[2]);
+	sj_object_get_value_as_int(sjbutt, "w", &c[3]);
+
+	strcpy(f, sj_object_get_value_as_string(sjbutt, "name"));
+
+
+
+
+
+
+
+	Button* startButton = newButton(vector4d(a[0], a[1],a[2], a[3]), "Start Button");
+	Button* quitButton = newButton(vector4d(b[0], b[1], b[2], b[3]), "Quit Button");
+	Button* ownedWeapons = newButton(vector4d(c[0], c[1], c[2], c[3]), "Owned Weapons");
+	Button* resetData = newButton(vector4d(c[0]+100, c[1]+100, c[2], c[3]), "Reset");
+	Button* resetDatadone = newButton(vector4d(c[0] + 100, c[1] + 100, c[2], c[3]), "Reset Complete");
+	bool alreadyReset = false;
 
 	//Menu Loop
 	while (true)
@@ -376,6 +448,15 @@ void* menu()
 		if (buttonBlip(*ownedWeapons))
 		{
 			ret = weaponCollection;
+		}
+		if (!alreadyReset && buttonBlip(*resetData))
+		{
+			alreadyReset = true;
+			saveWeapons(wspath1, 0b00100);
+		}
+		else if (alreadyReset)
+		{
+			buttonBlip(*resetDatadone);
 		}
 		blipEnd();
 		if(ret) return ret;
@@ -485,7 +566,7 @@ void explore()
 	ParticleSpawner* s = newpSpawner(10, vector3d(0, 0, 15));
 	s->color = GFC_COLOR_CYAN;
 
-
+	
 
 	oratimeinit();
 	while (true)
@@ -494,6 +575,26 @@ void explore()
 		UpdateObjects(exploreSceneInstance);
 		events();
 		particleSpawnerStep(s);
+
+		if (aniTimer < 0)
+		{
+			if (aniB)
+			{
+				gd.charen[0]->model = aniM;
+				aniB = false;
+				aniTimer = 1;
+			}
+			else
+			{
+				gd.charen[0]->model = aniO;
+				aniB = true;
+				aniTimer = 1;
+			}
+		}
+		else
+		{
+			aniTimer -= deltaTime;
+		}
 
 
 		for (int i = 0; i < 3; i++)
@@ -559,6 +660,9 @@ void explore()
 		//gfc_matrix3_slog(ubo.proj);
 
 
+
+
+
 		int alive = 6;
 
 		for (int j = 3; j < 9; j++)
@@ -572,9 +676,9 @@ void explore()
 			if (a > 0) //for demo purpases it is 100% chance;
 			{
 				gd.weapons = gd.weapons | (1 << ((int)(rand() % 6)));
-				printf("%i",gd.weapons);
+				printf("\n%i\n",gd.weapons);
 			}
-			saveWeapons(WEAPONSAVE_FILEPATH, gd.weapons);
+			saveWeapons(wspath1, gd.weapons);
 			break;
 		}
 
@@ -883,8 +987,10 @@ void battle(Object* a, Object* b)
 
 	//future button init here
 
+	ParticleSpawner* spa = newpSpawner(5, vector3d(b->position.x,b->position.y-5,b->position.z+5));
+	spa->color = GFC_COLOR_RED;
 
-
+	bool bleedCan = powers[4];
 
 
 	//battle scene loop
@@ -895,9 +1001,9 @@ void battle(Object* a, Object* b)
 		powers[0]; // Insta Kill
 		powers[1]; // Speed Up Basics
 		powers[2] = (gd.sm->activeScene->data.battleData.playerChar->Data.charenemyObj.charenemy->cooldownTimers.special <= 0); //Special attack
-		powers[3] = a->Data.charenemyObj.charenemy->isDead; // Stop enemy attacks
-		powers[4] = true; //hide ui
-		powers[5] = DemoMode;
+		powers[3];; // Stop enemy attacks
+		powers[4]; //bleed
+		powers[5]; //todo
 
 
 		if (powers[0] && gd.keys[SDL_SCANCODE_1])
@@ -907,7 +1013,15 @@ void battle(Object* a, Object* b)
 			powers[0] = false;
 		}
 
-
+		if (powers[4] && gd.keys[SDL_SCANCODE_5])
+		{
+			powers[4] = false;
+		}
+		if (!powers[4] && bleedCan)
+		{
+			particleSpawnerStep(spa);
+			b->Data.charenemyObj.charenemy->health -= 10*deltaTime;
+		}
 
 		bool canAttak = true;
 		if (powers[1] && gd.keys[SDL_SCANCODE_2] && used2Duration > 0)
@@ -922,7 +1036,18 @@ void battle(Object* a, Object* b)
 			canAttak = false;
 		}
 
-
+		bool faster = false;
+		if (powers[3] && gd.keys[SDL_SCANCODE_4] && used4Duration > 0)
+		{
+			used4Duration -= deltaTime;
+			faster = true;
+			powers[3] = false;
+		}
+		else if (used4Duration != 5 && used4Duration > 0)
+		{
+			used4Duration -= deltaTime;
+			faster = true;
+		}
 
 
 		for (int i = 0; i < 2; i++)
@@ -932,14 +1057,20 @@ void battle(Object* a, Object* b)
 
 			//tick cool downs, cds format 0b000 to 0b111
 			cds = tickcds(ab[i]->Data.charenemyObj.charenemy);
+			if (i == 0 && used4Duration > 0 && !powers[3])
+			{
+				cds = cds | tickcds(ab[i]->Data.charenemyObj.charenemy);
+			}
 			if (i == 1 && !canAttak)
 				break;
 
 			if (cds & 0b100)
 			{
 				Object* projtoadd = basicAttack(ab[i], ab[i ^ 1]);
-				if (used2 && used2Duration > 0 && i == 0)
-					projtoadd->color = GFC_COLOR_MAGENTA;
+				if (!powers[3] && used4Duration > 0 && i == 0)
+				{
+					projtoadd->color = GFC_COLOR_MAGENTA;	
+				}
 				AddObjectToActiveScene(projtoadd);
 			}
 			if (cds & 0b010)
@@ -972,7 +1103,9 @@ void battle(Object* a, Object* b)
 
 		//3d
 		DrawSceneObjects(battleScene);
-		
+
+		if(!powers[4] && bleedCan)
+			drawOraParticles(spa);
 
 
 
