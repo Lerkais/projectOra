@@ -558,6 +558,26 @@ void explore()
 		//UniformBufferObject ubo = gf3d_vgraphics_get_uniform_buffer_object();
 		//gfc_matrix3_slog(ubo.proj);
 
+
+		int alive = 6;
+
+		for (int j = 3; j < 9; j++)
+		{
+			if (gd.charen[j]->Data.charenemyObj.charenemy->isDead)
+				alive--;
+		}
+		if (alive == 0)
+		{
+			unsigned char a = rand() % 100;
+			if (a > 0)
+			{
+				gd.weapons = gd.weapons | (1 << ((int)(rand() % 6)));
+				printf("%i",gd.weapons);
+			}
+			saveWeapons(WEAPON_FILEPATH, gd.weapons);
+			break;
+		}
+
 	}
 }
 
