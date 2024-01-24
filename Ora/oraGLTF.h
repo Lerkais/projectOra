@@ -189,6 +189,8 @@ typedef struct gltfModel_S
     Skin* skins;
     unsigned int skincount;
 
+
+
 } gltfModel;
 
 // Load glTF model from file into standard model struct

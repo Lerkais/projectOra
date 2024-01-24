@@ -1,0 +1,145 @@
+﻿  simple_json.c
+  simple_json_array.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\simple_json\src\simple_json.c(4,10): error C1083: Cannot open include file: 'simple_json.h': No such file or directory
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\simple_json\src\simple_json_array.c(4,10): error C1083: Cannot open include file: 'simple_json.h': No such file or directory
+  simple_json_error.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\simple_json\src\simple_json_error.c(5,10): error C1083: Cannot open include file: 'simple_json_error.h': No such file or directory
+  simple_json_list.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\simple_json\src\simple_json_list.c(4,10): error C1083: Cannot open include file: 'simple_json_list.h': No such file or directory
+  simple_json_object.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\simple_json\src\simple_json_object.c(4,10): error C1083: Cannot open include file: 'simple_json.h': No such file or directory
+  simple_json_parse.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\simple_json\src\simple_json_parse.c(4,10): error C1083: Cannot open include file: 'simple_json.h': No such file or directory
+  simple_json_string.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\simple_json\src\simple_json_string.c(4,10): error C1083: Cannot open include file: 'simple_json.h': No such file or directory
+  simple_logger.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\simple_logger\src\simple_logger.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gfc_audio.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_audio.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gfc_callbacks.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_callbacks.c(1,10): error C1083: Cannot open include file: 'gfc_callbacks.h': No such file or directory
+  gfc_color.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_color.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gfc_config.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_config.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gfc_config_def.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_config_def.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gfc_hashmap.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_hashmap.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gfc_input.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_input.c(1,10): error C1083: Cannot open include file: 'simple_json.h': No such file or directory
+  gfc_list.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_list.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gfc_matrix.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_matrix.c(5,10): error C1083: Cannot open include file: 'gfc_matrix.h': No such file or directory
+  gfc_pak.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_pak.c(1,10): error C1083: Cannot open include file: 'miniz.h': No such file or directory
+  gfc_primitives.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_primitives.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gfc_shape.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_shape.c(3,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  Generating Code...
+  Compiling...
+  gfc_text.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_text.c(2,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gfc_types.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_types.c(1,10): error C1083: Cannot open include file: 'gfc_types.h': No such file or directory
+  gfc_vector.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_vector.c(4,10): error C1083: Cannot open include file: 'gfc_vector.h': No such file or directory
+  miniz.c
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\miniz.c(1,10): error C1083: Cannot open include file: 'miniz.h': No such file or directory
+  agumon.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\agumon.c(2,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  entity.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\entity.c(4,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf2d_draw.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf2d_draw.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf2d_font.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf2d_font.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf2d_sprite.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf2d_sprite.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_buffers.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_buffers.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_camera.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_camera.c(3,10): error C1083: Cannot open include file: 'gfc_matrix.h': No such file or directory
+  gf3d_commands.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_commands.c(3,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_config.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_config.c(3,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_debug.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_debug.c(3,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_device.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_device.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_extensions.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_extensions.c(3,10): error C1083: Cannot open include file: 'vulkan/vulkan.h': No such file or directory
+  gf3d_mesh.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_mesh.c(3,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_model.c
+C:\Users\funru\source\repos\projectOra\gf3d\include\gf3d_model.c(4,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_obj_load.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_obj_load.c(2,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_particle.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_particle.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  Generating Code...
+  Compiling...
+  gf3d_pipeline.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_pipeline.c(4,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_shaders.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_shaders.c(3,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_swapchain.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_swapchain.c(4,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_texture.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_texture.c(1,10): error C1083: Cannot open include file: 'SDL_image.h': No such file or directory
+  gf3d_uniform_buffers.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_uniform_buffers.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  gf3d_validation.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_validation.c(3,10): error C1083: Cannot open include file: 'vulkan/vulkan.h': No such file or directory
+  gf3d_vgraphics.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_vgraphics.c(5,10): error C1083: Cannot open include file: 'SDL.h': No such file or directory
+  gf3d_vqueues.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_vqueues.c(4,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  player.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\player.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  world.c
+C:\Users\funru\source\repos\projectOra\gf3d\src\world.c(1,10): error C1083: Cannot open include file: 'simple_logger.h': No such file or directory
+  charenemy.c
+C:\Users\funru\source\repos\projectOra\Ora\charenemy.h(6,10): error C1083: Cannot open include file: 'gfc_vector.h': No such file or directory
+  (compiling source file 'Ora/charenemy.c')
+  
+  object.c
+C:\Users\funru\source\repos\projectOra\Ora\object.h(4,10): error C1083: Cannot open include file: 'gfc_vector.h': No such file or directory
+  (compiling source file 'Ora/object.c')
+  
+  oraGLTF.c
+C:\Users\funru\source\repos\projectOra\Ora\oraGLTF.h(3,10): error C1083: Cannot open include file: 'gf3d_model.h': No such file or directory
+  (compiling source file 'Ora/oraGLTF.c')
+  
+  ora_game.c
+C:\Users\funru\source\repos\projectOra\Ora\ora_game.c(9,10): error C1083: Cannot open include file: 'SDL.h': No such file or directory
+  Pbdfluid.c
+C:\Users\funru\source\repos\projectOra\Ora\Pbdfluid.h(3,10): error C1083: Cannot open include file: 'gfc_vector.h': No such file or directory
+  (compiling source file 'Ora/Pbdfluid.c')
+  
+  playerPowers.c
+  ray.c
+C:\Users\funru\source\repos\projectOra\Ora\ray.h(3,10): error C1083: Cannot open include file: 'gfc_vector.h': No such file or directory
+  (compiling source file 'Ora/ray.c')
+  
+  sceneManager.c
+C:\Users\funru\source\repos\projectOra\Ora\charenemy.h(6,10): error C1083: Cannot open include file: 'gfc_vector.h': No such file or directory
+  (compiling source file 'Ora/sceneManager.c')
+  
+  special_attack.c
+C:\Users\funru\source\repos\projectOra\Ora\charenemy.h(6,10): error C1083: Cannot open include file: 'gfc_vector.h': No such file or directory
+  (compiling source file 'Ora/special_attack.c')
+  
+  oratime.c
+C:\Users\funru\source\repos\projectOra\Ora\oratime.c(5,16): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\funru\source\repos\projectOra\Ora\oratime.c(6,12): warning C4244: '=': conversion from 'clock_t' to 'float', possible loss of data
+C:\Users\funru\source\repos\projectOra\Ora\oratime.c(12,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\funru\source\repos\projectOra\Ora\oratime.c(13,12): warning C4244: '=': conversion from 'clock_t' to 'float', possible loss of data
+  Generating Code...
+  Compiling...
+  weapon.c
+C:\Users\funru\source\repos\projectOra\Ora\weapon.c(2,10): error C1083: Cannot open include file: 'simple_json.h': No such file or directory
+  Generating Code...

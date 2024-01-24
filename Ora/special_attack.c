@@ -43,7 +43,7 @@ Object* basicAttack(Object* creator,Object* target)
 	proj->scale = vector3d(.3, .3, .3);
 	proj->color = GFC_COLOR_BLUE;
 	proj->update = projUpdate;
-	proj->position = creator->position;
+	proj->position = vector3d(creator->position.x, creator->position.y, creator->position.z+10);
 	proj->Type = projectile;
 	proj->destroy = freeProj;
 
@@ -69,7 +69,7 @@ Object* heavyAttack(Object* creator, Object* target)
 	proj->scale = vector3d(.04, .04, .04);
 	proj->color = GFC_COLOR_RED;
 	proj->update = projUpdate;
-	proj->position = creator->position;
+	proj->position = vector3d(creator->position.x, creator->position.y, creator->position.z + 10);
 	proj->Type = projectile;
 	proj->destroy = freeProj;
 

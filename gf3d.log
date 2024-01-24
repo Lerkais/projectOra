@@ -1,6 +1,3 @@
-C:\Users\funru\source\repos\projectOra\gf3d\src\game.c:53: gf3d begin
-C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_extensions.c:98: intance extensions initialized
-C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_vgraphics.c:272: SDL Vulkan extensions support: VK_KHR_surface
-C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_vgraphics.c:272: SDL Vulkan extensions support: VK_KHR_win32_surface
-C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_vqueues.c:229: vqueues initialized
-C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_extensions.c:56: device extensions initialized
+C:\Users\funru\source\repos\projectOra\gf3d\gfc\src\gfc_input.c:77: failed to load input config
+C:\Users\funru\source\repos\projectOra\Ora\ora_game.c:198: gf3d begin
+C:\Users\funru\source\repos\projectOra\gf3d\src\gf3d_vgraphics.c:117: graphics config file load failed, exiting
